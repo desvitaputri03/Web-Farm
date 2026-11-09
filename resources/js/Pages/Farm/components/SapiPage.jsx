@@ -403,6 +403,13 @@ const SapiPage = ({ role = 'peternak' }) => {
     }
   };
 
+  const cleanKg = (v) => {
+    if (v === null || v === undefined || v === '' || v === '-') return null;
+    const num = Number(v);
+    if (isNaN(num)) return v;
+    return num % 1 === 0 ? num : Number(num.toFixed(1));
+  };
+
   const getBarnDisplayName = (barnRef) => {
     if (!barnRef && barnRef !== 0) return 'Kandang A (Utama)';
     if (barnRef === 'KDG-A01' || barnRef === 'Kandang Utama') return 'Kandang A (Utama)';
@@ -883,12 +890,20 @@ const SapiPage = ({ role = 'peternak' }) => {
             </label>
             <input
               type="number"
+              min="0"
+              step="any"
               name="cowPurchasePrice"
+              placeholder="Contoh: 15000000 untuk 15 Juta"
               value={formData.cowPurchasePrice}
               onChange={handleChange}
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all h-[42px]"
               required
             />
+            {formData.cowPurchasePrice && !isNaN(Number(formData.cowPurchasePrice)) && Number(formData.cowPurchasePrice) > 0 && (
+              <p className="text-[11px] font-bold text-[#12355B] mt-1.5 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 inline-block">
+                💵 Terbaca: Rp {Number(formData.cowPurchasePrice).toLocaleString('id-ID')}
+              </p>
+            )}
           </div>
 
           <div>
@@ -897,7 +912,9 @@ const SapiPage = ({ role = 'peternak' }) => {
             </label>
             <input
               type="number"
-              step="0.5"
+              min="0"
+              step="any"
+              placeholder="Contoh: 250"
               name="cowInitialWeight"
               value={formData.cowInitialWeight}
               onChange={handleChange}
@@ -912,7 +929,9 @@ const SapiPage = ({ role = 'peternak' }) => {
             </label>
             <input
               type="number"
-              step="0.5"
+              min="0"
+              step="any"
+              placeholder="Contoh: 500"
               name="cowTargetWeight"
               value={formData.cowTargetWeight}
               onChange={handleChange}
@@ -1149,11 +1168,11 @@ const SapiPage = ({ role = 'peternak' }) => {
                         <div className="space-y-1.5 text-xs text-[#162033] pt-2 border-t border-[#DCE5F0]/60">
                           <div className="flex justify-between items-center">
                             <span className="text-[#64748B] font-medium">Bobot awal:</span>
-                            <span className="font-semibold text-[#162033]">{initW ? `${initW} kg` : 'Belum diinput'}</span>
+                            <span className="font-semibold text-[#162033]">{cleanKg(initW) !== null ? `${cleanKg(initW)} kg` : 'Belum diinput'}</span>
                           </div>
                           <div className="flex justify-between items-center">
                             <span className="text-[#64748B] font-medium">Bobot target:</span>
-                            <span className="font-semibold text-[#162033]">{targetW ? `${targetW} kg` : 'Belum diinput'}</span>
+                            <span className="font-semibold text-[#162033]">{cleanKg(targetW) !== null ? `${cleanKg(targetW)} kg` : 'Belum diinput'}</span>
                           </div>
                         </div>
 

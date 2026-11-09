@@ -732,9 +732,10 @@ export default function DashboardPage({ onNavigate }) {
                     </label>
                     <input
                       type="number"
-                      min="50"
-                      max="1000"
+                      min="0"
+                      step="any"
                       required
+                      placeholder="Contoh: 250"
                       value={addCowForm.cowInitialWeight}
                       onChange={(e) => setAddCowForm({ ...addCowForm, cowInitialWeight: e.target.value })}
                       className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
@@ -747,9 +748,10 @@ export default function DashboardPage({ onNavigate }) {
                     </label>
                     <input
                       type="number"
-                      min="100"
-                      max="1500"
+                      min="0"
+                      step="any"
                       required
+                      placeholder="Contoh: 500"
                       value={addCowForm.cowTargetWeight}
                       onChange={(e) => setAddCowForm({ ...addCowForm, cowTargetWeight: e.target.value })}
                       className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
@@ -780,11 +782,17 @@ export default function DashboardPage({ onNavigate }) {
                   <input
                     type="number"
                     min="0"
-                    step="500000"
+                    step="any"
+                    placeholder="Contoh: 15000000 untuk 15 Juta"
                     value={addCowForm.cowPurchasePrice}
                     onChange={(e) => setAddCowForm({ ...addCowForm, cowPurchasePrice: e.target.value })}
                     className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
                   />
+                  {addCowForm.cowPurchasePrice && !isNaN(Number(addCowForm.cowPurchasePrice)) && Number(addCowForm.cowPurchasePrice) > 0 && (
+                    <p className="text-[11px] font-bold text-[#12355B] mt-1.5 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 inline-block">
+                      💵 Terbaca: Rp {Number(addCowForm.cowPurchasePrice).toLocaleString('id-ID')}
+                    </p>
+                  )}
                 </div>
 
                 {/* Catatan Sapi */}

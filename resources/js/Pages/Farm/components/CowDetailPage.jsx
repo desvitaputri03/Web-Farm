@@ -331,6 +331,13 @@ export default function CowDetailPage({
   const currentWeight = phy.bobot_terkini ?? phy.phyCurrentWeight ?? initWeight;
   const bodyTemp = phy.suhu_tubuh ?? phy.phyTemperature ?? 38.5;
 
+  const cleanKg = (v) => {
+    if (v === '-' || v === null || v === undefined || v === '') return '-';
+    const num = Number(v);
+    if (isNaN(num)) return v;
+    return `${num % 1 === 0 ? num : Number(num.toFixed(1))}`;
+  };
+
   const canEditGeneral = role === 'peternak' || role === 'admin';
   const canEditMedical = role === 'mantri' || role === 'admin';
 
@@ -788,15 +795,15 @@ export default function CowDetailPage({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="card-accent-top bg-white border border-[#DCE5F0] rounded-2xl p-5 shadow-xs hover:shadow-md transition-all">
               <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider">Bobot Awal Beli</span>
-              <p className="text-2xl font-bold text-[#162033] font-heading mt-2">{initWeight} kg</p>
+              <p className="text-2xl font-bold text-[#162033] font-heading mt-2">{cleanKg(initWeight)} kg</p>
             </div>
             <div className="card-accent-top card-accent-sky bg-white border border-blue-200/80 rounded-2xl p-5 shadow-xs hover:shadow-md transition-all">
               <span className="text-[11px] font-bold text-sky-700 uppercase tracking-wider">Bobot Terkini</span>
-              <p className="text-2xl font-bold text-[#12355B] font-heading mt-2">{currentWeight} kg</p>
+              <p className="text-2xl font-bold text-[#12355B] font-heading mt-2">{cleanKg(currentWeight)} kg</p>
             </div>
             <div className="card-accent-top card-accent-emerald bg-white border border-emerald-200/80 rounded-2xl p-5 shadow-xs hover:shadow-md transition-all">
               <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Target Bobot Jual</span>
-              <p className="text-2xl font-bold text-emerald-800 font-heading mt-2">{targetWeight} kg</p>
+              <p className="text-2xl font-bold text-emerald-800 font-heading mt-2">{cleanKg(targetWeight)} kg</p>
             </div>
           </div>
 
@@ -1035,8 +1042,8 @@ export default function CowDetailPage({
             </div>
             <div className="bg-white border border-[#DCE5F0] rounded-2xl p-5 shadow-xs">
               <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider">Bobot Terkini</span>
-              <p className="text-2xl font-bold text-[#162033] font-heading mt-2">{currentWeight} kg</p>
-              <p className="text-[11px] text-[#64748B] mt-1 font-medium">Target: {targetWeight} kg</p>
+              <p className="text-2xl font-bold text-[#162033] font-heading mt-2">{cleanKg(currentWeight)} kg</p>
+              <p className="text-[11px] text-[#64748B] mt-1 font-medium">Target: {cleanKg(targetWeight)} kg</p>
             </div>
             <div className="bg-white border border-[#DCE5F0] rounded-2xl p-5 shadow-xs">
               <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider">Status Kesehatan</span>
