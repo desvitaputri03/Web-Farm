@@ -132,11 +132,22 @@ export default function TempatMakanPage({ readOnly = false }) {
     setLoadingCows(true);
     axios.get('/farm/api/cows?limit=100').then(res => {
       const allCows = res.data.data ?? [];
+      const stId = station.id_tempat_makan || station.stationID;
+      const stCode = station.kode_tempat_makan || station.stationCode;
+      const stName = station.nama_tempat_makan || station.stationName;
+
       const filtered = allCows.filter(c => {
-        const cStation = c.cowStationID || c.stationName || c.feeding_station?.stationName;
-        return cStation === station.stationID || cStation === station.stationName || String(cStation) === String(station.stationCode);
+        const cStId = c.id_tempat_makan || c.cowStationID;
+        const cStName = c.tempat_makan?.nama_tempat_makan || c.stationName || c.feeding_station?.stationName;
+        const cStCode = c.tempat_makan?.kode_tempat_makan;
+
+        return (
+          (stId && String(cStId) === String(stId)) ||
+          (stCode && (String(cStCode) === String(stCode) || String(cStId) === String(stCode))) ||
+          (stName && cStName === stName)
+        );
       });
-      setCows(filtered.length > 0 ? filtered : allCows.slice(0, 3));
+      setCows(filtered);
     }).catch(() => {
       setCows([]);
     }).finally(() => setLoadingCows(false));
@@ -411,15 +422,21 @@ export default function TempatMakanPage({ readOnly = false }) {
             <div className="text-center py-10 text-xs text-slate-400 font-medium">Memuat data sapi...</div>
           ) : cows.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {cows.map((c, idx) => (
-                <div key={c.cowID || idx} className="bg-slate-50 border border-[#DCE5F0] rounded-xl p-4 space-y-2">
-                  <span className="font-mono text-xs font-bold text-[#12355B] bg-white border border-[#DCE5F0] px-2 py-0.5 rounded-lg">
-                    {c.cowCode || `Sapi ${idx + 1}`}
-                  </span>
-                  <p className="text-sm font-bold text-[#162033]">{c.cowBreed || 'Brangus'}</p>
-                  <p className="text-xs text-[#64748B]">{c.cowGender || 'Jantan'}</p>
-                </div>
-              ))}
+              {cows.map((c, idx) => {
+                const actualCode = c.id_sapi || c.cowCode || c.cowID || `Sapi ${idx + 1}`;
+                const breed = c.ras_sapi || c.cowBreed || 'Brangus';
+                const gender = c.jenis_kelamin || c.cowGender || 'Jantan';
+
+                return (
+                  <div key={c.id_sapi || c.cowID || idx} className="bg-slate-50 border border-[#DCE5F0] rounded-xl p-4 space-y-2">
+                    <span className="font-mono text-xs font-bold text-[#12355B] bg-white border border-[#DCE5F0] px-2 py-0.5 rounded-lg">
+                      {actualCode}
+                    </span>
+                    <p className="text-sm font-bold text-[#162033]">{breed}</p>
+                    <p className="text-xs text-[#64748B]">{gender}</p>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-10 text-xs text-slate-400 font-medium bg-slate-50 rounded-xl border border-dashed border-[#DCE5F0]">

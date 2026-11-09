@@ -28,6 +28,12 @@ import {
   HeartPulse
 } from 'lucide-react';
 
+const cleanKg = (val) => {
+  const n = parseFloat(val);
+  if (isNaN(n)) return val;
+  return Number.isInteger(n) ? String(n) : n.toString().replace(/\.?0+$/, '');
+};
+
 
 const COW_FALLBACK_IMAGES = [
   '/images/cows/cow1.jpg',
@@ -906,7 +912,7 @@ export default function DashboardPage({ onNavigate }) {
                     <div className="p-3 bg-white border border-[#DCE5F0] rounded-xl">
                       <p className="text-[10px] text-[#64748B] font-bold uppercase">Stasiun Tempat Makan</p>
                       <p className="text-xs font-bold text-[#162033] mt-1">
-                        {selectedCowModal.stationName || selectedCowModal.cowStationID || 'Tempat Makan 1 (Sektor A)'}
+                        {selectedCowModal.stationName || selectedCowModal.cowStationID || '-'}
                       </p>
                       <p className="text-[11px] text-[#64748B] mt-0.5">Fasilitas Pakan & Minum Ternak</p>
                     </div>
@@ -1011,7 +1017,7 @@ export default function DashboardPage({ onNavigate }) {
                     const targetWeight = phy.phyTargetWeight || phy.bobot_target || (weight + 120);
                     const breed = cow.cowBreed || cow.ras_sapi || 'Brangus';
                     const gender = cow.cowGender || cow.jenis_kelamin || (cowNum % 2 === 1 ? 'Jantan' : 'Betina');
-                    const station = cow.stationName || cow.cowStationID || (cowNum % 2 === 1 ? 'Tempat Makan 1 (Sektor A)' : 'Tempat Makan 2 (Sektor B)');
+                    const station = cow.stationName || cow.cowStationID || null;
                     const photo = (cow.foto_sapi && String(cow.foto_sapi).trim() !== '') ? cow.foto_sapi : ((cow.cowPhoto && String(cow.cowPhoto).trim() !== '') ? cow.cowPhoto : null);
 
                     return (
@@ -1044,7 +1050,7 @@ export default function DashboardPage({ onNavigate }) {
                               </h4>
                               <div className="flex items-center gap-2 mt-0.5">
                                 <span className="text-[11px] font-bold text-[#12355B] bg-slate-100 border border-[#DCE5F0] px-2 py-0.5 rounded-lg">
-                                  Sapi {cowNum} ({rawCode || `SP-${cowNum}`})
+                                  {rawCode || cow.id_sapi || cow.cowID}
                                 </span>
                               </div>
                             </div>
@@ -1070,17 +1076,19 @@ export default function DashboardPage({ onNavigate }) {
                                 <span>Berat Terkini</span>
                               </p>
                               <p className="text-sm font-bold text-[#162033] mt-0.5">
-                                {weight} kg
+                                {cleanKg(weight)} kg
                               </p>
                             </div>
                           </div>
 
                           {/* Stasiun Makan */}
+                          {station && (
                           <p className="text-[11px] text-[#64748B] font-medium truncate flex items-center gap-1.5">
                             <Utensils className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                             <span className="text-slate-400 font-bold">Stasiun:</span>
                             <span className="truncate">{station}</span>
                           </p>
+                          )}
                         </div>
 
                         {/* Footer Tombol Detail */}

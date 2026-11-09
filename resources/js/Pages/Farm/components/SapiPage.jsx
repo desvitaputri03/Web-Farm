@@ -99,6 +99,10 @@ const getCowPhoto = (cow) => {
   if (cow && cow.cowPhoto && typeof cow.cowPhoto === 'string' && cow.cowPhoto.trim() !== '') {
     return cow.cowPhoto;
   }
+  const rawCode = cow?.id_sapi || cow?.cowCode || cow?.cowID || '';
+  const numMatch = String(rawCode).match(/\d+$/);
+  const cowNum = numMatch ? parseInt(numMatch[0], 10) : (idx + 1);
+  return COW_FALLBACK_IMAGES[(cowNum - 1) % COW_FALLBACK_IMAGES.length];
   return null;
 };
 
@@ -481,8 +485,8 @@ const SapiPage = ({ role = 'peternak' }) => {
       cowMaintenanceStatus: 'Dipelihara',
       cowAgeEstimate: '',
       cowBreed: '',
-      cowBarnID: 'Kandang Utama',
-      cowStationID: 'Tempat Makan 1 (Sektor A)',
+      cowBarnID: '',
+      cowStationID: '',
       cowPurchasePrice: '',
       cowPhysiologyStatus: 'Normal',
       cowInitialWeight: '',
@@ -523,8 +527,8 @@ const SapiPage = ({ role = 'peternak' }) => {
       cowMaintenanceStatus: 'Dipelihara',
       cowAgeEstimate: '',
       cowBreed: '',
-      cowBarnID: 'Kandang Utama',
-      cowStationID: 'Tempat Makan 1 (Sektor A)',
+      cowBarnID: '',
+      cowStationID: '',
       cowPurchasePrice: '',
       cowPhysiologyStatus: 'Normal',
       cowInitialWeight: '',
@@ -890,6 +894,7 @@ const SapiPage = ({ role = 'peternak' }) => {
               min="0"
               step="any"
               name="cowPurchasePrice"
+
               value={formData.cowPurchasePrice}
               onChange={handleChange}
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all h-[42px]"
@@ -910,6 +915,7 @@ const SapiPage = ({ role = 'peternak' }) => {
               type="number"
               min="0"
               step="any"
+
               name="cowInitialWeight"
               value={formData.cowInitialWeight}
               onChange={handleChange}
@@ -926,6 +932,7 @@ const SapiPage = ({ role = 'peternak' }) => {
               type="number"
               min="0"
               step="any"
+
               name="cowTargetWeight"
               value={formData.cowTargetWeight}
               onChange={handleChange}
@@ -945,6 +952,7 @@ const SapiPage = ({ role = 'peternak' }) => {
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all cursor-pointer h-[42px]"
               required
             >
+              <option value="">-- Pilih Kandang --</option>
               {barns && barns.length > 0 ? (
                 barns.map(b => (
                   <option key={b.barnID || b.id_kandang} value={b.barnID || b.id_kandang}>
@@ -970,8 +978,19 @@ const SapiPage = ({ role = 'peternak' }) => {
               onChange={handleChange}
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all cursor-pointer h-[42px]"
             >
-              <option value="Tempat Makan 1 (Sektor A)">Tempat Makan 1 (Sektor A)</option>
-              <option value="Tempat Makan 2 (Sektor B)">Tempat Makan 2 (Sektor B)</option>
+              <option value="">-- Belum Ditentukan --</option>
+              {stations && stations.length > 0 ? (
+                stations.map(s => (
+                  <option key={s.id || s.id_tempat_makan} value={s.id || s.id_tempat_makan}>
+                    {s.nama_tempat_makan || s.stationName || s.name}
+                  </option>
+                ))
+              ) : (
+                <>
+                  <option value="1">Tempat Makan 1 (Sektor A)</option>
+                  <option value="2">Tempat Makan 2 (Sektor B)</option>
+                </>
+              )}
             </select>
           </div>
 
@@ -1159,6 +1178,7 @@ const SapiPage = ({ role = 'peternak' }) => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             onError={(e) => {
                               e.target.onerror = null;
+                              e.target.src = COW_FALLBACK_IMAGES[(cowNum - 1) % COW_FALLBACK_IMAGES.length];
                               e.target.style.display = 'none';
                             }}
                           />
