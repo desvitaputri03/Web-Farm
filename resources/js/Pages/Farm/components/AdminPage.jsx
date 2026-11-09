@@ -80,8 +80,7 @@ const AdminPage = ({ view = 'overview' }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    nomor_telepon: '',
-    password: '',
+    nomor_telepon: '',    password: '',
     role: 'peternak',
   });
 
@@ -375,18 +374,6 @@ const AdminPage = ({ view = 'overview' }) => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#162033] mb-1">Nomor Telepon / WhatsApp</label>
-                  <input
-                    type="tel"
-                    name="nomor_telepon"
-                    maxLength={20}
-                    value={formData.nomor_telepon || ''}
-                    onChange={handleChange}
-                    className="w-full bg-white border border-[#DCE5F0] rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none focus:border-[#12355B]"
-                  />
-                </div>
-
-                <div>
                   <label className="block text-xs font-semibold text-[#162033] mb-1">Role <span className="text-rose-500">*</span></label>
                   <select
                     name="role"
@@ -447,16 +434,14 @@ const AdminPage = ({ view = 'overview' }) => {
                   <thead>
                     <tr className="bg-slate-50/80 dark:bg-slate-800/60 border-b border-slate-200/80 dark:border-slate-800 text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-wider">
                       <th className="px-6 py-4">Pengguna</th>
-                      <th className="px-6 py-4">No. Telepon</th>
                       <th className="px-6 py-4">Role</th>
-                      <th className="px-6 py-4">Tanggal Dibuat</th>
                       <th className="px-6 py-4 text-center">Aksi</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200">
                     {loading ? (
                       <tr>
-                        <td colSpan="5" className="text-center py-10 text-slate-400">Memuat data pengguna...</td>
+                        <td colSpan="3" className="text-center py-10 text-slate-400">Memuat data pengguna...</td>
                       </tr>
                     ) : Array.isArray(users) && users.length > 0 ? (
                       users.map((u) => {
@@ -469,16 +454,10 @@ const AdminPage = ({ view = 'overview' }) => {
                                 <p className="text-[11px] text-[#64748B] font-body">{u.email}</p>
                               </div>
                             </td>
-                            <td className="px-6 py-4 text-[#162033] font-mono text-[11px]">
-                              {u.nomor_telepon ? u.nomor_telepon : <span className="text-slate-400 italic">Belum diisi</span>}
-                            </td>
                             <td className="px-6 py-4">
                               <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold border bg-slate-100 text-[#162033] border-[#DCE5F0]">
                                 {roleConfig.label}
                               </span>
-                            </td>
-                            <td className="px-6 py-4 text-[#64748B] font-mono text-[11px]">
-                              {u.created_at ? new Date(u.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
                             </td>
                             <td className="px-6 py-4 text-center">
                               <div className="flex items-center justify-center gap-1.5">
@@ -505,7 +484,7 @@ const AdminPage = ({ view = 'overview' }) => {
                       })
                     ) : (
                       <tr>
-                        <td colSpan="5" className="text-center py-10 text-slate-400">Belum ada pengguna terdaftar.</td>
+                        <td colSpan="3" className="text-center py-10 text-slate-400">Belum ada pengguna terdaftar.</td>
                       </tr>
                     )}
                   </tbody>
