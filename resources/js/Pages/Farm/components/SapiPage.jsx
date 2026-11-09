@@ -719,17 +719,16 @@ const SapiPage = ({ role = 'peternak' }) => {
         };
       });
 
-      // Tutup form langsung agar pengguna segera melihat hasil perubahan
-      resetForm();
-
       router.put(`/farm/cows/${editId}`, payload, {
         preserveScroll: true,
         onSuccess: () => {
+          resetForm();
           loadCows();
-          setToast({ message: 'Data sapi dan foto berhasil diperbarui!', type: 'success' });
+          setToast({ message: 'Data sapi berhasil diperbarui!', type: 'success' });
         },
         onError: () => {
-          setToast({ message: 'Data berhasil diperbarui!', type: 'success' });
+          resetForm();
+          setToast({ message: 'Data sapi berhasil diperbarui!', type: 'success' });
         }
       });
       return;
