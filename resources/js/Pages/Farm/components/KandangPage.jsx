@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import axios from 'axios';
-import { 
-  Warehouse, 
-  Plus, 
-  Edit2, 
-  Trash2, 
-  Eye, 
-  CheckCircle2, 
-  AlertCircle, 
+import {
+  Warehouse,
+  Plus,
+  Edit2,
+  Trash2,
+  Eye,
+  CheckCircle2,
+  AlertCircle,
   X
 } from 'lucide-react';
 import PageHeaderBanner from './PageHeaderBanner';
@@ -400,12 +400,8 @@ export default function KandangPage({ readOnly = false }) {
                               }
                               setDeleteBarnId(barn.barnID);
                             }}
-                            className={`p-2 rounded-xl border transition shadow-2xs h-[36px] w-[36px] flex items-center justify-center shrink-0 ${
-                              cowsCount > 0
-                                ? 'border-slate-200 bg-slate-100 text-slate-300 cursor-not-allowed'
-                                : 'border-[#DCE5F0] bg-white text-[#162033] hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 cursor-pointer'
-                            }`}
-                            title={cowsCount > 0 ? `Kandang tidak dapat dihapus karena masih terisi ${cowsCount} ekor sapi` : "Hapus Kandang"}
+                            className="p-2 rounded-xl border border-[#DCE5F0] bg-white text-[#162033] hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition cursor-pointer shadow-2xs h-[36px] w-[36px] flex items-center justify-center shrink-0"
+                            title="Hapus Kandang"
                           >
                             <Trash2 className="h-4 w-4 stroke-2" />
                           </button>
