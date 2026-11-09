@@ -78,14 +78,14 @@ const INITIAL_FALLBACK_STATIONS = [
     stationCode: 'FS-001',
     stationName: 'Tempat Makan Kandang Utama A (Pakan)',
     stationType: 'makan',
-    stationLocation: 'KDG-001',
+    stationLocation: 'KDG-A01',
   },
   {
     stationID: '2',
     stationCode: 'FS-002',
     stationName: 'Tempat Makan Kandang Utama B (Pakan & Air Minum)',
     stationType: 'campur',
-    stationLocation: 'KDG-001',
+    stationLocation: 'KDG-A01',
   }
 ];
 
@@ -123,8 +123,27 @@ export default function TempatMakanPage({ readOnly = false }) {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
-    const fallback = [{ barnID: 'KDG-001', barnName: 'Kandang Utama', barnCapacity: 10 }];
-    setBarns(fallback);
+    // Load barns dari API
+    axios.get('/farm/api/options/barns').then(res => {
+      const data = res.data?.data ?? res.data ?? [];
+      if (Array.isArray(data) && data.length > 0) {
+        setBarns(data.map(b => ({
+          barnID: b.barnID || b.id_kandang,
+          barnName: b.barnName || b.nama_kandang,
+          barnCapacity: b.barnCapacity || b.kapasitas_kandang || 10,
+        })));
+      } else {
+        setBarns([
+          { barnID: 'KDG-A01', barnName: 'Kandang A (Utama)', barnCapacity: 10 },
+          { barnID: 'KDG-B01', barnName: 'Kandang B', barnCapacity: 8 },
+        ]);
+      }
+    }).catch(() => {
+      setBarns([
+        { barnID: 'KDG-A01', barnName: 'Kandang A (Utama)', barnCapacity: 10 },
+        { barnID: 'KDG-B01', barnName: 'Kandang B', barnCapacity: 8 },
+      ]);
+    });
     loadAllStations();
   }, []);
 
@@ -232,7 +251,7 @@ export default function TempatMakanPage({ readOnly = false }) {
       stationCode: generatedCode.toUpperCase(),
       stationName: finalStationName,
       stationType: formData.stationType,
-      stationLocation: formData.stationLocation || (barns[0]?.barnID ?? 'KDG-001'),
+      stationLocation: formData.stationLocation || (barns[0]?.barnID ?? ''),
     };
 
     try {
@@ -267,7 +286,7 @@ export default function TempatMakanPage({ readOnly = false }) {
       stationCode: station.stationCode || '',
       stationName: '',
       stationType: station.stationType || 'makan',
-      stationLocation: station.stationLocation || barns[0]?.barnID || 'KDG-001',
+      stationLocation: station.stationLocation || barns[0]?.barnID || '',
     });
     setEditId(station.stationID);
     setErrorMsg('');
@@ -302,13 +321,13 @@ export default function TempatMakanPage({ readOnly = false }) {
   };
 
   const getBarnStations = (barn) => {
+    const bId = String(barn.barnID);
     const matched = allStations.filter(st => {
-      if (!st.stationLocation) return true;
+      if (!st.stationLocation) return false;
       const stLoc = String(st.stationLocation);
-      const bId = String(barn.barnID);
-      return stLoc === bId || stLoc === 'Kandang Utama' || (bId === 'KDG-001' && stLoc === 'KDG-A01') || (bId === 'KDG-A01' && stLoc === 'KDG-001');
+      return stLoc === bId;
     });
-    return matched.length > 0 ? matched : allStations;
+    return matched;
   };
 
   const renderForm = () => {
