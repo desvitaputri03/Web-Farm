@@ -427,6 +427,12 @@ export default function TempatMakanPage({ readOnly = false }) {
             </div>
           )}
         </div>
+        {/* Toast Notifikasi */}
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ message: '', type: 'success' })}
+        />
       </div>
     );
   }

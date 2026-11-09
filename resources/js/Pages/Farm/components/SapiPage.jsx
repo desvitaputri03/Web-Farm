@@ -989,14 +989,22 @@ const SapiPage = ({ role = 'peternak' }) => {
   // ==========================================
   if (selectedCow && !isFormOpen) {
     return (
-      <CowDetailPage
-        cow={selectedCow}
-        initialTab={selectedCowTab}
-        role={role}
-        onBack={handleBackToList}
-        onEditIdentity={handleEdit}
-        onRefresh={loadCows}
-      />
+      <>
+        <CowDetailPage
+          cow={selectedCow}
+          initialTab={selectedCowTab}
+          role={role}
+          onBack={handleBackToList}
+          onEditIdentity={handleEdit}
+          onRefresh={loadCows}
+        />
+        {/* Toast Notifikasi saat di halaman Detail Sapi */}
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ message: '', type: 'success' })}
+        />
+      </>
     );
   }
 
