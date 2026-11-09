@@ -407,10 +407,10 @@ const SapiPage = ({ role = 'peternak' }) => {
     if (!barnRef && barnRef !== 0) return 'Kandang A (Utama)';
     if (barnRef === 'KDG-A01' || barnRef === 'Kandang Utama') return 'Kandang A (Utama)';
     if (barnRef === 'KDG-B01') return 'Kandang B';
-    const found = barns.find(b => 
-      String(b.id_kandang) === String(barnRef) || 
-      String(b.barnID) === String(barnRef) || 
-      b.nama_kandang === barnRef || 
+    const found = barns.find(b =>
+      String(b.id_kandang) === String(barnRef) ||
+      String(b.barnID) === String(barnRef) ||
+      b.nama_kandang === barnRef ||
       b.barnName === barnRef
     );
     if (found) return found.nama_kandang || found.barnName;
@@ -422,12 +422,12 @@ const SapiPage = ({ role = 'peternak' }) => {
     if (!stationRef && stationRef !== 0) {
       return defaultNum % 2 === 1 ? 'Tempat Makan 1 (Sektor A)' : 'Tempat Makan 2 (Sektor B)';
     }
-    const found = stations.find(s => 
-      String(s.id_tempat_makan) === String(stationRef) || 
-      String(s.stationID) === String(stationRef) || 
-      String(s.kode_tempat_makan) === String(stationRef) || 
-      String(s.stationCode) === String(stationRef) || 
-      s.nama_tempat_makan === stationRef || 
+    const found = stations.find(s =>
+      String(s.id_tempat_makan) === String(stationRef) ||
+      String(s.stationID) === String(stationRef) ||
+      String(s.kode_tempat_makan) === String(stationRef) ||
+      String(s.stationCode) === String(stationRef) ||
+      s.nama_tempat_makan === stationRef ||
       s.stationName === stationRef
     );
     if (found) return found.nama_tempat_makan || found.stationName;
@@ -723,7 +723,7 @@ const SapiPage = ({ role = 'peternak' }) => {
       resetForm();
       setToast({ message: 'Data identitas sapi berhasil diperbarui!', type: 'success' });
       // Kirim ke server di background
-      axios.put(`/farm/cows/${editId}`, payload).then(() => loadCows()).catch(() => {});
+      axios.put(`/farm/cows/${editId}`, payload).then(() => loadCows()).catch(() => { });
       return;
     } else {
       // Tampilkan toast & tutup form LANGSUNG
@@ -1083,21 +1083,21 @@ const SapiPage = ({ role = 'peternak' }) => {
                 const actualCode = cow.cowCode || cow.id_sapi || cow.cowID || `Sapi ${cowNum}`;
                 const breedTitle = cow.cowBreed || cow.ras_sapi || 'Brangus';
                 const cardMainTitle = `${actualCode} (${breedTitle})`;
-                const stationName = 
+                const stationName =
                   cow.tempat_makan?.nama_tempat_makan ||
                   cow.tempatMakan?.nama_tempat_makan ||
                   cow.feeding_station?.stationName ||
                   getStationDisplayName(cow.id_tempat_makan || cow.cowStationID || cow.stationName, cowNum);
-                const barnName = 
+                const barnName =
                   cow.kandang?.nama_kandang ||
                   cow.barn?.barnName ||
                   getBarnDisplayName(cow.id_kandang || cow.cowBarnID);
                 const phy = cow.physiology || cow.fisiologis || {};
-                const initW = (phy.phyInitialWeight !== undefined && phy.phyInitialWeight !== null && phy.phyInitialWeight !== '') 
-                  ? phy.phyInitialWeight 
+                const initW = (phy.phyInitialWeight !== undefined && phy.phyInitialWeight !== null && phy.phyInitialWeight !== '')
+                  ? phy.phyInitialWeight
                   : (cow.phyInitialWeight ?? cow.cowInitialWeight ?? null);
-                const targetW = (phy.phyTargetWeight !== undefined && phy.phyTargetWeight !== null && phy.phyTargetWeight !== '') 
-                  ? phy.phyTargetWeight 
+                const targetW = (phy.phyTargetWeight !== undefined && phy.phyTargetWeight !== null && phy.phyTargetWeight !== '')
+                  ? phy.phyTargetWeight
                   : (cow.phyTargetWeight ?? cow.cowTargetWeight ?? null);
                 const photoUrl = getCowPhoto(cow, idx);
 
