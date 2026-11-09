@@ -132,7 +132,7 @@ export default function CowDetailPage({
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
-    setTimeout(() => setToast({ message: '', type: 'success' }), 4000);
+    setTimeout(() => setToast({ message: '', type: 'success' }), 3000);
   };
 
   const fmtDate = (d) => {

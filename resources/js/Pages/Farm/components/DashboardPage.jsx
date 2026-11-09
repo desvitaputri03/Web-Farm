@@ -377,7 +377,7 @@ export default function DashboardPage({ onNavigate }) {
       setIsAddCowOpen(false);
     } finally {
       setSubmittingCow(false);
-      setTimeout(() => setToastMessage(''), 4000);
+      setTimeout(() => setToastMessage(''), 3000);
     }
   };
 

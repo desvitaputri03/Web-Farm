@@ -51,7 +51,7 @@ const ConfirmModal = ({ isOpen, title = 'Konfirmasi Hapus', message = 'Apakah An
   );
 };
 
-const Toast = ({ message, type = 'success', onClose, duration = 4000 }) => {
+const Toast = ({ message, type = 'success', onClose, duration = 3000 }) => {
   useEffect(() => {
     if (!message) return;
     const timer = setTimeout(() => { if (onClose) onClose(); }, duration);

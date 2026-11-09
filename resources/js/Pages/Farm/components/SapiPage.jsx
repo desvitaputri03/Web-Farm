@@ -63,7 +63,7 @@ const ConfirmModal = ({
 // ==========================================
 // TOAST NOTIFIKASI
 // ==========================================
-const Toast = ({ message, type = 'success', onClose, duration = 4000 }) => {
+const Toast = ({ message, type = 'success', onClose, duration = 3000 }) => {
   useEffect(() => {
     if (!message) return;
     const timer = setTimeout(() => { if (onClose) onClose(); }, duration);
@@ -719,43 +719,20 @@ const SapiPage = ({ role = 'peternak' }) => {
         };
       });
 
-      try {
-        await axios.put(`/farm/cows/${editId}`, payload);
-        loadCows();
-      } catch {
-        // data already updated optimistically
-      } finally {
-        resetForm();
-        setToast({ message: 'Data identitas sapi berhasil diperbarui!', type: 'success' });
-      }
+      // Tampilkan toast & tutup form LANGSUNG (tidak nunggu server)
+      resetForm();
+      setToast({ message: 'Data identitas sapi berhasil diperbarui!', type: 'success' });
+      // Kirim ke server di background
+      axios.put(`/farm/cows/${editId}`, payload).then(() => loadCows()).catch(() => {});
       return;
     } else {
-      try {
-        const res = await axios.post('/farm/cows', payload);
-        const newCow = res.data?.cow || res.data?.data || {
-          cowID: activeCode,
-          id_sapi: activeCode,
-          ...payload,
-          tanggal_beli: payload.cowPurchaseDate,
-          status_pemeliharaan: payload.cowMaintenanceStatus,
-          berat_awal_beli: payload.cowInitialWeight,
-          target_berat_jual: payload.cowTargetWeight,
-          harga_beli: payload.cowPurchasePrice,
-          physiology: {
-            phyInitialWeight: payload.cowInitialWeight,
-            phyTargetWeight: payload.cowTargetWeight,
-            phyCurrentWeight: payload.cowInitialWeight,
-            phyStatus: payload.phyStatus,
-            phyHealthHistory: payload.phyHealthHistory,
-          }
-        };
-        setCows(prev => [newCow, ...prev]);
-        loadCows();
-      } catch {
+      // Tampilkan toast & tutup form LANGSUNG
+      resetForm();
+      setToast({ message: 'Sapi baru berhasil ditambahkan!', type: 'success' });
+      // Kirim ke server di background, lalu reload
+      axios.post('/farm/cows', payload).then(() => loadCows()).catch(() => {
         const newCow = {
-          cowID: activeCode,
-          id_sapi: activeCode,
-          ...payload,
+          cowID: activeCode, id_sapi: activeCode, ...payload,
           tanggal_beli: payload.cowPurchaseDate,
           status_pemeliharaan: payload.cowMaintenanceStatus,
           berat_awal_beli: payload.cowInitialWeight,
@@ -770,10 +747,7 @@ const SapiPage = ({ role = 'peternak' }) => {
           }
         };
         setCows(prev => [newCow, ...prev]);
-      } finally {
-        resetForm();
-        setToast({ message: 'Sapi baru berhasil ditambahkan!', type: 'success' });
-      }
+      });
     }
   };
 
