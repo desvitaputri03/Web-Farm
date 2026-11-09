@@ -632,7 +632,7 @@ export default function CowDetailPage({
     <div className="space-y-6 font-body animate-fadeIn">
       {/* Toast Alert */}
       {toast.message && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999999] animate-slideDown pointer-events-auto">
+        <div className="fixed inset-0 z-[9999999] flex items-center justify-center pointer-events-none">
           <div className={`flex items-center gap-3 px-5 py-3 rounded-2xl border shadow-2xl text-xs font-semibold text-white ${toast.type === 'error' ? 'bg-rose-900 border-rose-700' : 'bg-[#12355B] border-slate-700'}`}>
             {toast.type === 'error' ? <AlertCircle className="h-4 w-4 text-rose-400 shrink-0" /> : <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />}
             <span>{toast.message}</span>

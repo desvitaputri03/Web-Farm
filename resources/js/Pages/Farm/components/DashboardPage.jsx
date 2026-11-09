@@ -404,7 +404,7 @@ export default function DashboardPage({ onNavigate }) {
     <div className="space-y-6 font-body">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999999] animate-slideDown pointer-events-auto">
+        <div className="fixed inset-0 z-[9999999] flex items-center justify-center pointer-events-none">
           <div className="flex items-center gap-3 px-5 py-3 rounded-2xl border shadow-2xl bg-[#12355B] text-white border-slate-700 text-xs font-semibold">
             <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
             <span>{toastMessage}</span>

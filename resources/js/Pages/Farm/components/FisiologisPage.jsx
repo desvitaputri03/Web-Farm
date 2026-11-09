@@ -384,7 +384,7 @@ export default function FisiologisPage({ readOnly = false }) {
       />
 
       {toast.message && (
-        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[9999999] animate-slideDown font-body pointer-events-auto">
+        <div className="fixed inset-0 z-[9999999] flex items-center justify-center pointer-events-none font-body">
           <div className="flex items-center gap-3 px-5 py-3.5 rounded-2xl border shadow-2xl max-w-md bg-[#12355B] text-white border-slate-700">
             <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
             <span className="text-xs font-semibold flex-1 leading-snug">{toast.message}</span>
