@@ -73,7 +73,7 @@ class AdminController extends Controller
         $validated = $request->validate([
             'email'         => 'required|string|email|max:100|unique:users,email',
             'role'          => 'required|in:peternak,mantri',
-            'password'      => 'required|string|min:6',
+            'password'      => 'required|string',
             'name'          => 'nullable|string|max:100',
             'nomor_telepon' => 'nullable|string|max:20',
         ], [
@@ -83,7 +83,6 @@ class AdminController extends Controller
             'role.required'     => 'Role pengguna harus dipilih.',
             'role.in'           => 'Role hanya boleh Peternak atau Mantri.',
             'password.required' => 'Password wajib diisi.',
-            'password.min'      => 'Password minimal 6 karakter.',
         ]);
 
         $email = trim($validated['email']);
@@ -114,7 +113,7 @@ class AdminController extends Controller
         $validated = $request->validate([
             'email'         => 'required|string|email|max:100|unique:users,email,' . $user->id,
             'role'          => 'required|in:peternak,mantri,admin',
-            'password'      => 'nullable|string|min:6',
+            'password'      => 'nullable|string',
             'name'          => 'nullable|string|max:100',
             'nomor_telepon' => 'nullable|string|max:20',
         ], [
@@ -123,7 +122,6 @@ class AdminController extends Controller
             'email.unique'   => 'Email sudah terdaftar di sistem.',
             'role.required'  => 'Role pengguna harus dipilih.',
             'role.in'        => 'Role tidak valid.',
-            'password.min'   => 'Password minimal 6 karakter.',
         ]);
 
         $email = trim($validated['email']);
