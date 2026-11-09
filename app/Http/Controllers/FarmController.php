@@ -887,7 +887,27 @@ class FarmController extends Controller
     public function destroyBarn(Request $request, string $id)
     {
         $barn = Kandang::where('id_kandang', $id)->first();
-        if ($barn) $barn->delete();
+        if ($barn) {
+            $cowsCount = Sapi::where('id_kandang', $id)
+                ->orWhere('id_kandang', $barn->nama_kandang)
+                ->count();
+
+            if ($cowsCount > 0) {
+                if ($request->wantsJson() || $request->ajax()) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => "Kandang tidak dapat dihapus karena masih terisi {$cowsCount} ekor sapi!"
+                    ], 422);
+                }
+                return redirect()->back()->with('error', "Kandang tidak dapat dihapus karena masih terisi {$cowsCount} ekor sapi!");
+            }
+
+            $barn->delete();
+        }
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json(['status' => 'success', 'message' => 'Data kandang berhasil dihapus!']);
+        }
         return redirect()->back()->with('success', 'Data kandang berhasil dihapus!');
     }
 

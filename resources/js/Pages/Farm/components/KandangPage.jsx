@@ -187,14 +187,20 @@ export default function KandangPage({ readOnly = false }) {
 
   const handleDelete = async () => {
     if (!deleteBarnId) return;
+    const targetBarnCows = getBarnCows(deleteBarnId);
+    if (targetBarnCows.length > 0) {
+      setToast({ message: `Kandang tidak dapat dihapus karena masih terisi ${targetBarnCows.length} ekor sapi!`, type: 'error' });
+      setDeleteBarnId(null);
+      return;
+    }
     try {
-      await axios.delete(`/farm/barns/${deleteBarnId}`);
-      setToast({ message: 'Kandang berhasil dihapus.', type: 'success' });
+      const res = await axios.delete(`/farm/barns/${deleteBarnId}`);
+      setToast({ message: res.data?.message || 'Kandang berhasil dihapus.', type: 'success' });
       setDeleteBarnId(null);
       fetchData();
-    } catch {
-      setBarns(prev => prev.filter(b => b.barnID !== deleteBarnId));
-      setToast({ message: 'Kandang berhasil dihapus.', type: 'success' });
+    } catch (err) {
+      const errMsg = err.response?.data?.message || 'Gagal menghapus kandang.';
+      setToast({ message: errMsg, type: 'error' });
       setDeleteBarnId(null);
     }
   };
@@ -276,7 +282,7 @@ export default function KandangPage({ readOnly = false }) {
             </div>
             <div className="flex justify-between items-center py-2.5 border-b border-[#DCE5F0]/60">
               <span className="text-[#64748B] font-medium">Jumlah Sapi Saat Ini:</span>
-              <span className="font-bold text-[#12355B]">{getBarnCows(selectedBarnDetail.barnID).length || 6} Ekor</span>
+              <span className="font-bold text-[#12355B]">{getBarnCows(selectedBarnDetail.barnID).length} Ekor</span>
             </div>
           </div>
 
@@ -324,7 +330,7 @@ export default function KandangPage({ readOnly = false }) {
               {barns.map((barn) => {
                 const barnCows = getBarnCows(barn.barnID);
                 const capacity = Number(barn.barnCapacity || barn.kapasitas_kandang) || 10;
-                const cowsCount = barnCows.length || 6;
+                const cowsCount = barnCows.length;
                 const occupancyPercentage = Math.round((cowsCount / capacity) * 100);
 
                 return (
@@ -387,9 +393,19 @@ export default function KandangPage({ readOnly = false }) {
                           </button>
                           <button
                             type="button"
-                            onClick={() => setDeleteBarnId(barn.barnID)}
-                            className="p-2 rounded-xl border border-[#DCE5F0] bg-white text-[#162033] hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition cursor-pointer shadow-2xs h-[36px] w-[36px] flex items-center justify-center shrink-0"
-                            title="Hapus Kandang"
+                            onClick={() => {
+                              if (cowsCount > 0) {
+                                setToast({ message: `Kandang ${barn.barnName || ''} tidak dapat dihapus karena masih terisi ${cowsCount} ekor sapi!`, type: 'error' });
+                                return;
+                              }
+                              setDeleteBarnId(barn.barnID);
+                            }}
+                            className={`p-2 rounded-xl border transition shadow-2xs h-[36px] w-[36px] flex items-center justify-center shrink-0 ${
+                              cowsCount > 0
+                                ? 'border-slate-200 bg-slate-100 text-slate-300 cursor-not-allowed'
+                                : 'border-[#DCE5F0] bg-white text-[#162033] hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 cursor-pointer'
+                            }`}
+                            title={cowsCount > 0 ? `Kandang tidak dapat dihapus karena masih terisi ${cowsCount} ekor sapi` : "Hapus Kandang"}
                           >
                             <Trash2 className="h-4 w-4 stroke-2" />
                           </button>
