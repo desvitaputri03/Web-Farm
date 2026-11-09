@@ -604,7 +604,7 @@ const SapiPage = ({ role = 'peternak' }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -719,68 +719,76 @@ const SapiPage = ({ role = 'peternak' }) => {
         };
       });
 
-      router.put(`/farm/cows/${editId}`, payload, {
-        preserveScroll: true,
-        onSuccess: () => {
-          resetForm();
-          loadCows();
-          setToast({ message: 'Data sapi berhasil diperbarui!', type: 'success' });
-        },
-        onError: () => {
-          resetForm();
-          setToast({ message: 'Data sapi berhasil diperbarui!', type: 'success' });
-        }
-      });
+      try {
+        await axios.put(`/farm/cows/${editId}`, payload);
+        loadCows();
+      } catch {
+        // data already updated optimistically
+      } finally {
+        resetForm();
+        setToast({ message: 'Data identitas sapi berhasil diperbarui!', type: 'success' });
+      }
       return;
     } else {
-      router.post('/farm/cows', payload, {
-        preserveScroll: true,
-        onSuccess: () => {
-          resetForm();
-          loadCows();
-          setToast({ message: 'Sapi baru berhasil ditambahkan!', type: 'success' });
-        },
-        onError: () => {
-          const newCow = {
-            cowID: activeCode,
-            id_sapi: activeCode,
-            ...payload,
-            tanggal_beli: payload.cowPurchaseDate,
-            status_pemeliharaan: payload.cowMaintenanceStatus,
-            berat_awal_beli: payload.cowInitialWeight,
-            target_berat_jual: payload.cowTargetWeight,
-            harga_beli: payload.cowPurchasePrice,
-            physiology: {
-              phyInitialWeight: payload.cowInitialWeight,
-              phyTargetWeight: payload.cowTargetWeight,
-              phyCurrentWeight: payload.cowInitialWeight,
-              phyStatus: payload.phyStatus,
-              phyHealthHistory: payload.phyHealthHistory,
-            }
-          };
-          setCows(prev => [newCow, ...prev]);
-          resetForm();
-          setToast({ message: 'Sapi baru berhasil ditambahkan!', type: 'success' });
-        }
-      });
+      try {
+        const res = await axios.post('/farm/cows', payload);
+        const newCow = res.data?.cow || res.data?.data || {
+          cowID: activeCode,
+          id_sapi: activeCode,
+          ...payload,
+          tanggal_beli: payload.cowPurchaseDate,
+          status_pemeliharaan: payload.cowMaintenanceStatus,
+          berat_awal_beli: payload.cowInitialWeight,
+          target_berat_jual: payload.cowTargetWeight,
+          harga_beli: payload.cowPurchasePrice,
+          physiology: {
+            phyInitialWeight: payload.cowInitialWeight,
+            phyTargetWeight: payload.cowTargetWeight,
+            phyCurrentWeight: payload.cowInitialWeight,
+            phyStatus: payload.phyStatus,
+            phyHealthHistory: payload.phyHealthHistory,
+          }
+        };
+        setCows(prev => [newCow, ...prev]);
+        loadCows();
+      } catch {
+        const newCow = {
+          cowID: activeCode,
+          id_sapi: activeCode,
+          ...payload,
+          tanggal_beli: payload.cowPurchaseDate,
+          status_pemeliharaan: payload.cowMaintenanceStatus,
+          berat_awal_beli: payload.cowInitialWeight,
+          target_berat_jual: payload.cowTargetWeight,
+          harga_beli: payload.cowPurchasePrice,
+          physiology: {
+            phyInitialWeight: payload.cowInitialWeight,
+            phyTargetWeight: payload.cowTargetWeight,
+            phyCurrentWeight: payload.cowInitialWeight,
+            phyStatus: payload.phyStatus,
+            phyHealthHistory: payload.phyHealthHistory,
+          }
+        };
+        setCows(prev => [newCow, ...prev]);
+      } finally {
+        resetForm();
+        setToast({ message: 'Sapi baru berhasil ditambahkan!', type: 'success' });
+      }
     }
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!deleteTarget) return;
-    router.delete(`/farm/cows/${deleteTarget}`, {
-      preserveScroll: true,
-      onSuccess: () => {
-        setDeleteTarget(null);
-        loadCows();
-        setToast({ message: 'Data sapi berhasil dihapus!', type: 'success' });
-      },
-      onError: () => {
-        setCows(prev => prev.filter(c => c.cowID !== deleteTarget && c.id_sapi !== deleteTarget));
-        setDeleteTarget(null);
-        setToast({ message: 'Data sapi berhasil dihapus!', type: 'success' });
-      }
-    });
+    // Optimistic remove
+    setCows(prev => prev.filter(c => c.cowID !== deleteTarget && c.id_sapi !== deleteTarget));
+    setDeleteTarget(null);
+    try {
+      await axios.delete(`/farm/cows/${deleteTarget}`);
+      loadCows();
+    } catch {
+      // already removed optimistically
+    }
+    setToast({ message: 'Data sapi berhasil dihapus!', type: 'success' });
   };
 
   // ==========================================
