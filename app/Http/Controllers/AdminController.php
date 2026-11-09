@@ -96,6 +96,9 @@ class AdminController extends Controller
             'role'          => $validated['role'],
         ]);
 
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json(['message' => "Pengguna {$user->email} berhasil ditambahkan."]);
+        }
         return redirect()->back()->with('success', "Pengguna {$user->email} berhasil ditambahkan.");
     }
 
@@ -107,6 +110,9 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
 
         if (auth()->id() === $user->id && $request->input('role') !== 'admin') {
+            if ($request->wantsJson() || $request->expectsJson()) {
+                return response()->json(['errors' => ['error' => 'Admin tidak dapat menurunkan role akun sendiri.']], 403);
+            }
             return redirect()->back()->withErrors(['error' => 'Admin tidak dapat menurunkan role akun sendiri.']);
         }
 
@@ -138,6 +144,9 @@ class AdminController extends Controller
         }
         $user->save();
 
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json(['message' => "Pengguna {$user->email} berhasil diperbarui."]);
+        }
         return redirect()->back()->with('success', "Pengguna {$user->email} berhasil diperbarui.");
     }
 
@@ -149,14 +158,24 @@ class AdminController extends Controller
         $user = User::find($id);
 
         if (!$user) {
+            if ($request->wantsJson() || $request->expectsJson()) {
+                return response()->json(['errors' => ['error' => 'Pengguna tidak ditemukan.']], 404);
+            }
             return redirect()->back()->withErrors(['error' => 'Pengguna tidak ditemukan.']);
         }
 
         if ($user->role === 'admin' || auth()->id() === $user->id) {
+            if ($request->wantsJson() || $request->expectsJson()) {
+                return response()->json(['errors' => ['error' => 'Akun admin utama tidak dapat dihapus.']], 403);
+            }
             return redirect()->back()->withErrors(['error' => 'Akun admin utama tidak dapat dihapus.']);
         }
 
         $user->delete();
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json(['message' => "Pengguna {$user->email} berhasil dihapus."]);
+        }
         return redirect()->back()->with('success', "Pengguna {$user->email} berhasil dihapus.");
     }
 }
