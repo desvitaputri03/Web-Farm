@@ -49,15 +49,15 @@ class FarmController extends Controller
      */
     private function paginatedResponse($query, Request $request): JsonResponse
     {
-        $limit  = min(max((int) $request->query('limit', 10), 1), 100);
+        $limit = min(max((int) $request->query('limit', 10), 1), 100);
         $offset = max((int) $request->query('offset', 0), 0);
-        $total  = (clone $query)->count();
-        $data   = (clone $query)->skip($offset)->take($limit)->get();
+        $total = (clone $query)->count();
+        $data = (clone $query)->skip($offset)->take($limit)->get();
 
         return response()->json([
-            'data'   => $data,
-            'total'  => $total,
-            'limit'  => $limit,
+            'data' => $data,
+            'total' => $total,
+            'limit' => $limit,
             'offset' => $offset,
         ]);
     }
@@ -164,7 +164,7 @@ class FarmController extends Controller
         if ($date = $request->query('date')) {
             $query->where(function ($dq) use ($date) {
                 $dq->whereDate('tanggal_pencatatan', $date)
-                   ->orWhereDate('created_at', $date);
+                    ->orWhereDate('created_at', $date);
             });
         }
 
@@ -183,7 +183,7 @@ class FarmController extends Controller
                     ->orWhere('aktivitas', 'like', "%{$search}%")
                     ->orWhereHas('sapi', function ($sq) use ($search) {
                         $sq->where('ras_sapi', 'like', "%{$search}%")
-                           ->orWhere('id_sapi', 'like', "%{$search}%");
+                            ->orWhere('id_sapi', 'like', "%{$search}%");
                     });
             });
         }
@@ -195,7 +195,7 @@ class FarmController extends Controller
         if ($date = $request->query('date')) {
             $query->where(function ($dq) use ($date) {
                 $dq->whereDate('waktu_mulai', $date)
-                   ->orWhereDate('created_at', $date);
+                    ->orWhereDate('created_at', $date);
             });
         }
 
@@ -230,7 +230,7 @@ class FarmController extends Controller
                     ->orWhere('komposisi_pakan', 'like', "%{$search}%")
                     ->orWhereHas('sapi', function ($sq) use ($search) {
                         $sq->where('ras_sapi', 'like', "%{$search}%")
-                           ->orWhere('id_sapi', 'like', "%{$search}%");
+                            ->orWhere('id_sapi', 'like', "%{$search}%");
                     });
             });
         }
@@ -238,7 +238,7 @@ class FarmController extends Controller
         if ($date = $request->query('date')) {
             $query->where(function ($dq) use ($date) {
                 $dq->whereDate('tanggal_pencatatan', $date)
-                   ->orWhereDate('created_at', $date);
+                    ->orWhereDate('created_at', $date);
             });
         }
 
@@ -309,13 +309,13 @@ class FarmController extends Controller
 
     public function dashboardStats(Request $request): JsonResponse
     {
-        $dateParam   = $request->query('date');
-        $cows        = Cow::with(['fisiologis', 'physiology', 'tempatMakan', 'feedingStation', 'kandang'])->get();
-        $barnsQuery  = Barn::with(['sapi.fisiologis', 'sapi.physiology', 'sapi.tempatMakan', 'sapi.feedingStation'])->get();
-        $physiology  = Physiology::all();
-        $behavior    = BehaviorLog::all();
-        $feed        = FeedLog::all();
-        $today       = $dateParam ? \Carbon\Carbon::parse($dateParam)->toDateString() : now()->toDateString();
+        $dateParam = $request->query('date');
+        $cows = Cow::with(['fisiologis', 'physiology', 'tempatMakan', 'feedingStation', 'kandang'])->get();
+        $barnsQuery = Barn::with(['sapi.fisiologis', 'sapi.physiology', 'sapi.tempatMakan', 'sapi.feedingStation'])->get();
+        $physiology = Physiology::all();
+        $behavior = BehaviorLog::all();
+        $feed = FeedLog::all();
+        $today = $dateParam ? \Carbon\Carbon::parse($dateParam)->toDateString() : now()->toDateString();
 
         $avgCowTemp = $physiology->avg('suhu_tubuh');
         $avgBarnTemp = $barnsQuery->avg('suhu_kandang') ? round($barnsQuery->avg('suhu_kandang'), 1) : 28.2;
@@ -325,15 +325,15 @@ class FarmController extends Controller
         $totalWaterConsumed = 45.0;
 
         $eatCountToday = $behavior->filter(
-            fn ($b) => $b->aktivitas === 'Makan' && $b->waktu_mulai && \Carbon\Carbon::parse($b->waktu_mulai)->toDateString() === $today
+            fn($b) => $b->aktivitas === 'Makan' && $b->waktu_mulai && \Carbon\Carbon::parse($b->waktu_mulai)->toDateString() === $today
         )->count();
 
         $activitiesToday = $behavior->filter(
-            fn ($b) => $b->waktu_mulai && \Carbon\Carbon::parse($b->waktu_mulai)->toDateString() === $today
+            fn($b) => $b->waktu_mulai && \Carbon\Carbon::parse($b->waktu_mulai)->toDateString() === $today
         )->count();
 
         $abnormalCount = $physiology->filter(
-            fn ($p) => ($p->suhu_tubuh ?? 0) > 39.5 || ($p->suhu_tubuh ?? 0) < 37.5
+            fn($p) => ($p->suhu_tubuh ?? 0) > 39.5 || ($p->suhu_tubuh ?? 0) < 37.5
         )->count();
 
         $dirtyBarns = $barnsQuery->filter(fn($b) => strtolower($b->kondisi_lantai ?? '') === 'kotor')->count();
@@ -346,48 +346,48 @@ class FarmController extends Controller
             $cowWeights = $barnCows->map(fn($c) => optional($c->fisiologis)->bobot_terkini ?? optional($c->physiology)->phyCurrentWeight)->filter();
 
             return [
-                'id_kandang'          => $barn->id_kandang,
-                'barnID'              => $barn->id_kandang,
-                'nama_kandang'        => $barn->nama_kandang,
-                'barnName'            => $barn->nama_kandang,
-                'lokasi_kandang'      => $barn->lokasi_kandang,
-                'barnLocation'        => $barn->lokasi_kandang,
-                'kapasitas_kandang'   => $barn->kapasitas_kandang ?? 10,
-                'barnCapacity'        => $barn->kapasitas_kandang ?? 10,
-                'suhu_kandang'        => $barn->suhu_kandang ?? 28.2,
-                'barnTemperature'     => $barn->suhu_kandang ?? 28.2,
-                'kelembapan_kandang'  => $barn->kelembapan_kandang ?? 72.0,
-                'barnHumidity'        => $barn->kelembapan_kandang ?? 72.0,
-                'kondisi_lantai'      => $barn->kondisi_lantai ?? 'Bersih',
-                'barnFloorCondition'  => $barn->kondisi_lantai ?? 'Bersih',
-                'pencahayaan'         => $barn->pencahayaan ?? 220,
-                'kecepatan_angin'     => $barn->kecepatan_angin ?? 1.1,
-                'totalCows'           => $barnCows->count(),
-                'total_sapi'          => $barnCows->count(),
-                'avgCowTemp'          => $cowTemps->count() > 0 ? round($cowTemps->avg(), 1) : null,
-                'avgWeight'           => $cowWeights->count() > 0 ? round($cowWeights->avg(), 1) : null,
-                'cows'                => $barnCows,
+                'id_kandang' => $barn->id_kandang,
+                'barnID' => $barn->id_kandang,
+                'nama_kandang' => $barn->nama_kandang,
+                'barnName' => $barn->nama_kandang,
+                'lokasi_kandang' => $barn->lokasi_kandang,
+                'barnLocation' => $barn->lokasi_kandang,
+                'kapasitas_kandang' => $barn->kapasitas_kandang ?? 10,
+                'barnCapacity' => $barn->kapasitas_kandang ?? 10,
+                'suhu_kandang' => $barn->suhu_kandang ?? 28.2,
+                'barnTemperature' => $barn->suhu_kandang ?? 28.2,
+                'kelembapan_kandang' => $barn->kelembapan_kandang ?? 72.0,
+                'barnHumidity' => $barn->kelembapan_kandang ?? 72.0,
+                'kondisi_lantai' => $barn->kondisi_lantai ?? 'Bersih',
+                'barnFloorCondition' => $barn->kondisi_lantai ?? 'Bersih',
+                'pencahayaan' => $barn->pencahayaan ?? 220,
+                'kecepatan_angin' => $barn->kecepatan_angin ?? 1.1,
+                'totalCows' => $barnCows->count(),
+                'total_sapi' => $barnCows->count(),
+                'avgCowTemp' => $cowTemps->count() > 0 ? round($cowTemps->avg(), 1) : null,
+                'avgWeight' => $cowWeights->count() > 0 ? round($cowWeights->avg(), 1) : null,
+                'cows' => $barnCows,
             ];
         });
 
         return response()->json([
-            'totalCows'          => $cows->count(),
-            'maleCows'           => $cows->where('jenis_kelamin', 'Jantan')->count(),
-            'femaleCows'         => $cows->where('jenis_kelamin', 'Betina')->count(),
-            'totalBarns'         => $barnsData->count(),
-            'avgCowTemp'         => $avgCowTemp ? round($avgCowTemp, 1) : null,
-            'avgBarnTemp'        => $avgBarnTemp,
-            'avgBarnHumidity'    => $avgBarnHumidity,
-            'totalFeedConsumed'  => round($totalFeedConsumed, 1),
+            'totalCows' => $cows->count(),
+            'maleCows' => $cows->where('jenis_kelamin', 'Jantan')->count(),
+            'femaleCows' => $cows->where('jenis_kelamin', 'Betina')->count(),
+            'totalBarns' => $barnsData->count(),
+            'avgCowTemp' => $avgCowTemp ? round($avgCowTemp, 1) : null,
+            'avgBarnTemp' => $avgBarnTemp,
+            'avgBarnHumidity' => $avgBarnHumidity,
+            'totalFeedConsumed' => round($totalFeedConsumed, 1),
             'totalWaterConsumed' => round($totalWaterConsumed, 1),
-            'eatCountToday'      => $eatCountToday,
-            'activitiesToday'    => $activitiesToday,
-            'abnormalCount'      => $abnormalCount,
-            'dirtyBarns'         => $dirtyBarns,
-            'recentBehavior'     => $recentBehavior,
-            'barns'              => $barnsData,
-            'cows'               => $cows,
-            'analytics'          => (new \App\Services\LivestockAnalyticsService())->compute($dateParam),
+            'eatCountToday' => $eatCountToday,
+            'activitiesToday' => $activitiesToday,
+            'abnormalCount' => $abnormalCount,
+            'dirtyBarns' => $dirtyBarns,
+            'recentBehavior' => $recentBehavior,
+            'barns' => $barnsData,
+            'cows' => $cows,
+            'analytics' => (new \App\Services\LivestockAnalyticsService())->compute($dateParam),
         ]);
     }
 
@@ -476,7 +476,7 @@ class FarmController extends Controller
             $year = date('Y');
             $count = Sapi::count() + 1;
             do {
-                $cowID = 'SP-' . $year . '-' . str_pad((string)$count, 3, '0', STR_PAD_LEFT);
+                $cowID = 'SP-' . $year . '-' . str_pad((string) $count, 3, '0', STR_PAD_LEFT);
                 $count++;
             } while (Sapi::where('id_sapi', $cowID)->exists());
         }
@@ -602,10 +602,14 @@ class FarmController extends Controller
         $phy = Fisiologis::where('id_sapi', $cow->id_sapi)->first();
         if ($phy) {
             $phyUpdates = [];
-            if ($phyStatus !== null) $phyUpdates['status_fisiologis'] = $phyStatus;
-            if ($initWeight !== null && $initWeight !== '') $phyUpdates['bobot_awal'] = (float) $initWeight;
-            if ($targetWeight !== null && $targetWeight !== '') $phyUpdates['bobot_target'] = (float) $targetWeight;
-            if ($healthHistory !== null) $phyUpdates['riwayat_kesehatan'] = $healthHistory;
+            if ($phyStatus !== null)
+                $phyUpdates['status_fisiologis'] = $phyStatus;
+            if ($initWeight !== null && $initWeight !== '')
+                $phyUpdates['bobot_awal'] = (float) $initWeight;
+            if ($targetWeight !== null && $targetWeight !== '')
+                $phyUpdates['bobot_target'] = (float) $targetWeight;
+            if ($healthHistory !== null)
+                $phyUpdates['riwayat_kesehatan'] = $healthHistory;
             if (!empty($phyUpdates)) {
                 $phy->update($phyUpdates);
             }
@@ -679,27 +683,27 @@ class FarmController extends Controller
     public function storePhysiology(Request $request)
     {
         $validated = $request->validate([
-            'phyCowID'          => 'nullable|string',
-            'id_sapi'           => 'nullable|string',
-            'phyStatus'         => 'nullable|string',
+            'phyCowID' => 'nullable|string',
+            'id_sapi' => 'nullable|string',
+            'phyStatus' => 'nullable|string',
             'status_fisiologis' => 'nullable|string',
-            'phyInitialWeight'  => 'nullable|numeric',
-            'bobot_awal'        => 'nullable|numeric',
-            'phyCurrentWeight'  => 'nullable|numeric',
-            'bobot_terkini'     => 'nullable|numeric',
-            'phyTargetWeight'   => 'nullable|numeric',
-            'bobot_target'      => 'nullable|numeric',
-            'phyTemperature'    => 'nullable|numeric',
-            'suhu_tubuh'        => 'nullable|numeric',
-            'phyHealthHistory'  => 'nullable|string',
-            'phyHealthNotes'    => 'nullable|string',
+            'phyInitialWeight' => 'nullable|numeric',
+            'bobot_awal' => 'nullable|numeric',
+            'phyCurrentWeight' => 'nullable|numeric',
+            'bobot_terkini' => 'nullable|numeric',
+            'phyTargetWeight' => 'nullable|numeric',
+            'bobot_target' => 'nullable|numeric',
+            'phyTemperature' => 'nullable|numeric',
+            'suhu_tubuh' => 'nullable|numeric',
+            'phyHealthHistory' => 'nullable|string',
+            'phyHealthNotes' => 'nullable|string',
             'riwayat_kesehatan' => 'nullable|string',
-            'tanggal_pencatatan'=> 'nullable|date',
-            'phyRecordDate'     => 'nullable|date',
-            'jam_pengukuran'    => 'nullable|string',
-            'phyRecordTime'     => 'nullable|string',
-            'jenis_pencatatan'  => 'nullable|string',
-            'phyRecordType'     => 'nullable|string',
+            'tanggal_pencatatan' => 'nullable|date',
+            'phyRecordDate' => 'nullable|date',
+            'jam_pengukuran' => 'nullable|string',
+            'phyRecordTime' => 'nullable|string',
+            'jenis_pencatatan' => 'nullable|string',
+            'phyRecordType' => 'nullable|string',
         ]);
 
         $cowID = $validated['id_sapi'] ?? $validated['phyCowID'] ?? $request->input('id_sapi', $request->input('phyCowID'));
@@ -710,16 +714,16 @@ class FarmController extends Controller
         $recordType = $request->input('jenis_pencatatan', $request->input('phyRecordType', 'Penimbangan Berkala'));
 
         $phy = Fisiologis::create([
-            'id_sapi'            => $cowID,
-            'status_fisiologis'  => $status ?: 'Normal',
-            'bobot_awal'         => $request->input('bobot_awal', $request->input('phyInitialWeight')),
-            'bobot_terkini'      => $request->input('bobot_terkini', $request->input('phyCurrentWeight', 250)),
-            'bobot_target'       => $request->input('bobot_target', $request->input('phyTargetWeight', 500)),
-            'suhu_tubuh'         => $request->input('suhu_tubuh', $request->input('phyTemperature', 38.5)),
-            'riwayat_kesehatan'  => $healthHistory ?? null,
+            'id_sapi' => $cowID,
+            'status_fisiologis' => $status ?: 'Normal',
+            'bobot_awal' => $request->input('bobot_awal', $request->input('phyInitialWeight')),
+            'bobot_terkini' => $request->input('bobot_terkini', $request->input('phyCurrentWeight', 250)),
+            'bobot_target' => $request->input('bobot_target', $request->input('phyTargetWeight', 500)),
+            'suhu_tubuh' => $request->input('suhu_tubuh', $request->input('phyTemperature', 38.5)),
+            'riwayat_kesehatan' => $healthHistory ?? null,
             'tanggal_pencatatan' => $recordDate,
-            'jam_pengukuran'     => $recordTime,
-            'jenis_pencatatan'   => $recordType,
+            'jam_pengukuran' => $recordTime,
+            'jenis_pencatatan' => $recordType,
         ]);
 
         if ($request->wantsJson() && !$request->header('X-Inertia')) {
@@ -733,16 +737,16 @@ class FarmController extends Controller
     {
         $phy = Fisiologis::where('id_fisiologis', $id)->first() ?? Fisiologis::where('id_sapi', $id)->firstOrFail();
         $healthHistory = $request->input('riwayat_kesehatan', $request->input('phyHealthHistory', $request->input('phyHealthNotes')));
-        
+
         $data = array_filter([
-            'status_fisiologis'  => $request->input('status_fisiologis', $request->input('phyStatus')),
-            'bobot_awal'         => $request->input('bobot_awal', $request->input('phyInitialWeight')),
-            'bobot_terkini'      => $request->input('bobot_terkini', $request->input('phyCurrentWeight')),
-            'bobot_target'       => $request->input('bobot_target', $request->input('phyTargetWeight')),
-            'suhu_tubuh'         => $request->input('suhu_tubuh', $request->input('phyTemperature')),
+            'status_fisiologis' => $request->input('status_fisiologis', $request->input('phyStatus')),
+            'bobot_awal' => $request->input('bobot_awal', $request->input('phyInitialWeight')),
+            'bobot_terkini' => $request->input('bobot_terkini', $request->input('phyCurrentWeight')),
+            'bobot_target' => $request->input('bobot_target', $request->input('phyTargetWeight')),
+            'suhu_tubuh' => $request->input('suhu_tubuh', $request->input('phyTemperature')),
             'tanggal_pencatatan' => $request->input('tanggal_pencatatan', $request->input('phyRecordDate')),
-            'jam_pengukuran'     => $request->input('jam_pengukuran', $request->input('phyRecordTime')),
-            'jenis_pencatatan'   => $request->input('jenis_pencatatan', $request->input('phyRecordType')),
+            'jam_pengukuran' => $request->input('jam_pengukuran', $request->input('phyRecordTime')),
+            'jenis_pencatatan' => $request->input('jenis_pencatatan', $request->input('phyRecordType')),
         ], fn($v) => $v !== null && $v !== '');
 
         if ($healthHistory !== null) {
@@ -761,7 +765,8 @@ class FarmController extends Controller
     public function destroyPhysiology(Request $request, string $id)
     {
         $phy = Fisiologis::where('id_fisiologis', $id)->first() ?? Fisiologis::where('id_sapi', $id)->first();
-        if ($phy) $phy->delete();
+        if ($phy)
+            $phy->delete();
 
         if ($request->wantsJson() && !$request->header('X-Inertia')) {
             return response()->json(['success' => true, 'message' => 'Data fisiologis berhasil dihapus!']);
@@ -807,7 +812,8 @@ class FarmController extends Controller
     public function destroyBehavior(Request $request, string $id)
     {
         $beh = LogPerilaku::where('id_log_perilaku', $id)->first();
-        if ($beh) $beh->delete();
+        if ($beh)
+            $beh->delete();
         return redirect()->back()->with('success', 'Data perilaku berhasil dihapus!');
     }
 
@@ -817,20 +823,20 @@ class FarmController extends Controller
     public function storeBarn(Request $request)
     {
         $validated = $request->validate([
-            'barnID'              => 'nullable|string|max:50',
-            'id_kandang'          => 'nullable|string|max:50',
-            'barnName'            => 'nullable|string|max:100',
-            'nama_kandang'        => 'nullable|string|max:100',
-            'barnLocation'        => 'nullable|string|max:255',
-            'lokasi_kandang'      => 'nullable|string|max:255',
-            'barnCapacity'        => 'nullable|integer|min:1',
-            'kapasitas_kandang'   => 'nullable|integer|min:1',
-            'barnTemperature'     => 'nullable|numeric',
-            'suhu_kandang'        => 'nullable|numeric',
-            'barnHumidity'        => 'nullable|numeric',
-            'kelembapan_kandang'  => 'nullable|numeric',
-            'barnFloorCondition'  => 'nullable|string',
-            'kondisi_lantai'      => 'nullable|string',
+            'barnID' => 'nullable|string|max:50',
+            'id_kandang' => 'nullable|string|max:50',
+            'barnName' => 'nullable|string|max:100',
+            'nama_kandang' => 'nullable|string|max:100',
+            'barnLocation' => 'nullable|string|max:255',
+            'lokasi_kandang' => 'nullable|string|max:255',
+            'barnCapacity' => 'nullable|integer|min:1',
+            'kapasitas_kandang' => 'nullable|integer|min:1',
+            'barnTemperature' => 'nullable|numeric',
+            'suhu_kandang' => 'nullable|numeric',
+            'barnHumidity' => 'nullable|numeric',
+            'kelembapan_kandang' => 'nullable|numeric',
+            'barnFloorCondition' => 'nullable|string',
+            'kondisi_lantai' => 'nullable|string',
         ]);
 
         $barnID = $validated['id_kandang'] ?? $validated['barnID'] ?? null;
@@ -844,7 +850,7 @@ class FarmController extends Controller
         if (empty($barnID)) {
             $count = Kandang::count() + 1;
             do {
-                $barnID = 'KDG-' . str_pad((string)$count, 3, '0', STR_PAD_LEFT);
+                $barnID = 'KDG-' . str_pad((string) $count, 3, '0', STR_PAD_LEFT);
                 $count++;
             } while (Kandang::where('id_kandang', $barnID)->exists());
         }
@@ -925,7 +931,7 @@ class FarmController extends Controller
         $waterQuality = $request->input('kualitas_air', $request->input('feedWaterQuality', 'Baik'));
         $initWater = (float) $request->input('air_awal', $request->input('feedInitialWater', 40));
         $leftoverWater = (float) $request->input('sisa_air', $request->input('feedLeftoverWater', 5));
-        
+
         $pricePerKg = (float) $request->input('harga_pakan_per_kg', $request->input('feedPricePerKg', 5000));
         $dailyCost = (float) $request->input('biaya_pakan_harian', $request->input('feedDailyCost', $initFeed * $pricePerKg));
         $recordDate = $request->input('tanggal_pencatatan', $request->input('feedRecordDate', now()->toDateString()));
@@ -946,29 +952,29 @@ class FarmController extends Controller
         $notes = $request->input('keterangan', $request->input('feedNotes'));
 
         $log = LogPakan::create([
-            'id_sapi'            => $cowID,
-            'id_tempat_makan'    => $stationID,
-            'komposisi_pakan'    => $composition,
-            'pakan_awal'         => $initFeed,
-            'sisa_pakan'         => $leftoverFeed,
-            'frekuensi_makan'    => $frequency,
-            'kualitas_air'       => $waterQuality,
-            'air_awal'           => $initWater,
-            'sisa_air'           => $leftoverWater,
+            'id_sapi' => $cowID,
+            'id_tempat_makan' => $stationID,
+            'komposisi_pakan' => $composition,
+            'pakan_awal' => $initFeed,
+            'sisa_pakan' => $leftoverFeed,
+            'frekuensi_makan' => $frequency,
+            'kualitas_air' => $waterQuality,
+            'air_awal' => $initWater,
+            'sisa_air' => $leftoverWater,
             'harga_pakan_per_kg' => $pricePerKg,
             'biaya_pakan_harian' => $dailyCost,
             'tanggal_pencatatan' => $recordDate,
-            'sesi_makan_1_jam'   => $sesi1Jam,
-            'sesi_makan_1_durasi'=> $sesi1Dur,
+            'sesi_makan_1_jam' => $sesi1Jam,
+            'sesi_makan_1_durasi' => $sesi1Dur,
             'sesi_makan_1_pakan' => $sesi1Pak,
-            'sesi_makan_2_jam'   => $sesi2Jam,
-            'sesi_makan_2_durasi'=> $sesi2Dur,
+            'sesi_makan_2_jam' => $sesi2Jam,
+            'sesi_makan_2_durasi' => $sesi2Dur,
             'sesi_makan_2_pakan' => $sesi2Pak,
-            'sesi_makan_3_jam'   => $sesi3Jam,
-            'sesi_makan_3_durasi'=> $sesi3Dur,
+            'sesi_makan_3_jam' => $sesi3Jam,
+            'sesi_makan_3_durasi' => $sesi3Dur,
             'sesi_makan_3_pakan' => $sesi3Pak,
             'total_durasi_makan' => $totalDur,
-            'keterangan'         => $notes,
+            'keterangan' => $notes,
         ]);
 
         if ($request->wantsJson() && !$request->header('X-Inertia')) {
@@ -982,26 +988,26 @@ class FarmController extends Controller
     {
         $feed = LogPakan::where('id_log_pakan', $id)->firstOrFail();
         $feed->update(array_filter([
-            'id_sapi'            => $request->input('id_sapi', $request->input('feedCowID')),
-            'id_tempat_makan'    => $request->input('id_tempat_makan', $request->input('feedStationID')),
-            'komposisi_pakan'    => $request->input('komposisi_pakan', $request->input('feedComposition')),
-            'pakan_awal'         => $request->input('pakan_awal', $request->input('feedInitialFeed')),
-            'sisa_pakan'         => $request->input('sisa_pakan', $request->input('feedLeftoverFeed')),
-            'frekuensi_makan'    => $request->input('frekuensi_makan', $request->input('feedFrequency')),
+            'id_sapi' => $request->input('id_sapi', $request->input('feedCowID')),
+            'id_tempat_makan' => $request->input('id_tempat_makan', $request->input('feedStationID')),
+            'komposisi_pakan' => $request->input('komposisi_pakan', $request->input('feedComposition')),
+            'pakan_awal' => $request->input('pakan_awal', $request->input('feedInitialFeed')),
+            'sisa_pakan' => $request->input('sisa_pakan', $request->input('feedLeftoverFeed')),
+            'frekuensi_makan' => $request->input('frekuensi_makan', $request->input('feedFrequency')),
             'harga_pakan_per_kg' => $request->input('harga_pakan_per_kg', $request->input('feedPricePerKg')),
             'biaya_pakan_harian' => $request->input('biaya_pakan_harian', $request->input('feedDailyCost')),
             'tanggal_pencatatan' => $request->input('tanggal_pencatatan', $request->input('feedRecordDate')),
-            'sesi_makan_1_jam'   => $request->input('sesi_makan_1_jam'),
-            'sesi_makan_1_durasi'=> $request->input('sesi_makan_1_durasi'),
+            'sesi_makan_1_jam' => $request->input('sesi_makan_1_jam'),
+            'sesi_makan_1_durasi' => $request->input('sesi_makan_1_durasi'),
             'sesi_makan_1_pakan' => $request->input('sesi_makan_1_pakan'),
-            'sesi_makan_2_jam'   => $request->input('sesi_makan_2_jam'),
-            'sesi_makan_2_durasi'=> $request->input('sesi_makan_2_durasi'),
+            'sesi_makan_2_jam' => $request->input('sesi_makan_2_jam'),
+            'sesi_makan_2_durasi' => $request->input('sesi_makan_2_durasi'),
             'sesi_makan_2_pakan' => $request->input('sesi_makan_2_pakan'),
-            'sesi_makan_3_jam'   => $request->input('sesi_makan_3_jam'),
-            'sesi_makan_3_durasi'=> $request->input('sesi_makan_3_durasi'),
+            'sesi_makan_3_jam' => $request->input('sesi_makan_3_jam'),
+            'sesi_makan_3_durasi' => $request->input('sesi_makan_3_durasi'),
             'sesi_makan_3_pakan' => $request->input('sesi_makan_3_pakan'),
             'total_durasi_makan' => $request->input('total_durasi_makan'),
-            'keterangan'         => $request->input('keterangan', $request->input('feedNotes')),
+            'keterangan' => $request->input('keterangan', $request->input('feedNotes')),
         ], fn($v) => $v !== null && $v !== ''));
 
         if ($request->wantsJson() && !$request->header('X-Inertia')) {
@@ -1014,7 +1020,8 @@ class FarmController extends Controller
     public function destroyFeed(Request $request, string $id)
     {
         $feed = LogPakan::where('id_log_pakan', $id)->first();
-        if ($feed) $feed->delete();
+        if ($feed)
+            $feed->delete();
 
         if ($request->wantsJson() && !$request->header('X-Inertia')) {
             return response()->json(['success' => true, 'message' => 'Data pakan berhasil dihapus!']);
@@ -1036,7 +1043,7 @@ class FarmController extends Controller
         if (empty($stationCode)) {
             $count = TempatMakan::count() + 1;
             do {
-                $stationCode = 'TM-' . str_pad((string)$count, 3, '0', STR_PAD_LEFT);
+                $stationCode = 'TM-' . str_pad((string) $count, 3, '0', STR_PAD_LEFT);
                 $count++;
             } while (TempatMakan::where('kode_tempat_makan', $stationCode)->exists());
         }
@@ -1076,7 +1083,8 @@ class FarmController extends Controller
     public function destroyFeedingStation(Request $request, string $id)
     {
         $station = TempatMakan::where('id_tempat_makan', $id)->first();
-        if ($station) $station->delete();
+        if ($station)
+            $station->delete();
         return redirect()->back()->with('success', 'Data tempat makan berhasil dihapus!');
     }
 }
