@@ -12,7 +12,7 @@ const Toast = ({ message, type = 'success', onClose, duration = 3000 }) => {
   if (!message) return null;
   const isSuccess = type === 'success';
   return (
-    <div className="fixed bottom-6 right-6 z-50 animate-slideUp font-body">
+    <div className="fixed inset-0 z-[9999999] flex items-center justify-center pointer-events-none font-body">
       <div className={`flex items-center gap-3 px-4 py-3 rounded-2xl border shadow-xl max-w-sm ${isSuccess ? 'bg-[#12355B] text-white border-slate-700 shadow-slate-950/30' : 'bg-rose-900/90 text-white border-rose-700 shadow-rose-950/30'} backdrop-blur-md`}>
         {isSuccess ? <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" /> : <AlertCircle className="h-5 w-5 text-rose-400 shrink-0" />}
         <span className="text-xs font-bold flex-1 leading-snug">{message}</span>
