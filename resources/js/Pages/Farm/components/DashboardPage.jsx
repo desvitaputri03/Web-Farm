@@ -361,7 +361,7 @@ export default function DashboardPage({ onNavigate }) {
         cowHistory: addCowForm.cowHistory,
         cowBarnID: barnIdToSend,
         cowStationID: addCowForm.cowStationID,
-        cowPhoto: COW_FALLBACK_IMAGES[(nextNum - 1) % COW_FALLBACK_IMAGES.length],
+        cowPhoto: null,
         physiology: {
           phyInitialWeight: parseFloat(addCowForm.cowInitialWeight),
           phyTargetWeight: parseFloat(addCowForm.cowTargetWeight),
@@ -735,7 +735,6 @@ export default function DashboardPage({ onNavigate }) {
                       min="0"
                       step="any"
                       required
-                      placeholder="Contoh: 250"
                       value={addCowForm.cowInitialWeight}
                       onChange={(e) => setAddCowForm({ ...addCowForm, cowInitialWeight: e.target.value })}
                       className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
@@ -751,7 +750,6 @@ export default function DashboardPage({ onNavigate }) {
                       min="0"
                       step="any"
                       required
-                      placeholder="Contoh: 500"
                       value={addCowForm.cowTargetWeight}
                       onChange={(e) => setAddCowForm({ ...addCowForm, cowTargetWeight: e.target.value })}
                       className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
@@ -783,7 +781,6 @@ export default function DashboardPage({ onNavigate }) {
                     type="number"
                     min="0"
                     step="any"
-                    placeholder="Contoh: 15000000 untuk 15 Juta"
                     value={addCowForm.cowPurchasePrice}
                     onChange={(e) => setAddCowForm({ ...addCowForm, cowPurchasePrice: e.target.value })}
                     className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
@@ -832,15 +829,21 @@ export default function DashboardPage({ onNavigate }) {
               {/* Header */}
               <div className="flex items-start justify-between gap-4 border-b border-[#DCE5F0] pb-5">
                 <div className="flex items-center gap-4">
-                  <img
-                    src={selectedCowModal.foto_sapi || selectedCowModal.cowPhoto || COW_FALLBACK_IMAGES[0]}
-                    alt="Sapi"
-                    className="w-16 h-16 rounded-2xl object-cover border border-[#DCE5F0] shadow-xs"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = COW_FALLBACK_IMAGES[0];
-                    }}
-                  />
+                  {(selectedCowModal.foto_sapi || selectedCowModal.cowPhoto) ? (
+                    <img
+                      src={selectedCowModal.foto_sapi || selectedCowModal.cowPhoto}
+                      alt="Sapi"
+                      className="w-16 h-16 rounded-2xl object-cover border border-[#DCE5F0] shadow-xs"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-2xl bg-slate-100 border border-[#DCE5F0] flex items-center justify-center text-[#12355B] shadow-xs">
+                      <Beef className="w-8 h-8 text-[#12355B]" />
+                    </div>
+                  )}
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-lg font-bold text-[#162033] font-heading">
@@ -1009,7 +1012,7 @@ export default function DashboardPage({ onNavigate }) {
                     const breed = cow.cowBreed || cow.ras_sapi || 'Brangus';
                     const gender = cow.cowGender || cow.jenis_kelamin || (cowNum % 2 === 1 ? 'Jantan' : 'Betina');
                     const station = cow.stationName || cow.cowStationID || (cowNum % 2 === 1 ? 'Tempat Makan 1 (Sektor A)' : 'Tempat Makan 2 (Sektor B)');
-                    const photo = cow.foto_sapi || cow.cowPhoto || COW_FALLBACK_IMAGES[(cowNum - 1) % COW_FALLBACK_IMAGES.length];
+                    const photo = (cow.foto_sapi && String(cow.foto_sapi).trim() !== '') ? cow.foto_sapi : ((cow.cowPhoto && String(cow.cowPhoto).trim() !== '') ? cow.cowPhoto : null);
 
                     return (
                       <div
@@ -1020,15 +1023,21 @@ export default function DashboardPage({ onNavigate }) {
                         <div>
                           {/* Header Kartu Sapi dengan Foto */}
                           <div className="flex items-center gap-3.5 pb-3 border-b border-[#DCE5F0]">
-                            <img
-                              src={photo}
-                              alt={breed}
-                              className="w-12 h-12 rounded-xl object-cover border border-[#DCE5F0] shrink-0"
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = COW_FALLBACK_IMAGES[(cowNum - 1) % COW_FALLBACK_IMAGES.length];
-                              }}
-                            />
+                            {photo ? (
+                              <img
+                                src={photo}
+                                alt={breed}
+                                className="w-12 h-12 rounded-xl object-cover border border-[#DCE5F0] shrink-0"
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.style.display = 'none';
+                                }}
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded-xl bg-slate-100 border border-[#DCE5F0] flex items-center justify-center text-[#12355B] shrink-0">
+                                <Beef className="w-6 h-6 text-[#12355B]" />
+                              </div>
+                            )}
                             <div className="flex-1 min-w-0">
                               <h4 className="text-sm font-bold text-[#162033] group-hover:text-[#12355B] transition-colors font-heading truncate">
                                 {breed}

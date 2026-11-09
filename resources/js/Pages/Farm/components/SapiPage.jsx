@@ -92,17 +92,14 @@ const COW_FALLBACK_IMAGES = [
   '/images/cows/cow6.jpg'
 ];
 
-const getCowPhoto = (cow, idx = 0) => {
+const getCowPhoto = (cow) => {
   if (cow && cow.foto_sapi && typeof cow.foto_sapi === 'string' && cow.foto_sapi.trim() !== '') {
     return cow.foto_sapi;
   }
   if (cow && cow.cowPhoto && typeof cow.cowPhoto === 'string' && cow.cowPhoto.trim() !== '') {
     return cow.cowPhoto;
   }
-  const rawCode = cow?.id_sapi || cow?.cowCode || cow?.cowID || '';
-  const numMatch = String(rawCode).match(/\d+$/);
-  const cowNum = numMatch ? parseInt(numMatch[0], 10) : (idx + 1);
-  return COW_FALLBACK_IMAGES[(cowNum - 1) % COW_FALLBACK_IMAGES.length];
+  return null;
 };
 
 // Data Fallback Sapi Lengkap (Catatan Lapangan Alami Peternak)
@@ -893,7 +890,6 @@ const SapiPage = ({ role = 'peternak' }) => {
               min="0"
               step="any"
               name="cowPurchasePrice"
-              placeholder="Contoh: 15000000 untuk 15 Juta"
               value={formData.cowPurchasePrice}
               onChange={handleChange}
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all h-[42px]"
@@ -914,7 +910,6 @@ const SapiPage = ({ role = 'peternak' }) => {
               type="number"
               min="0"
               step="any"
-              placeholder="Contoh: 250"
               name="cowInitialWeight"
               value={formData.cowInitialWeight}
               onChange={handleChange}
@@ -931,13 +926,38 @@ const SapiPage = ({ role = 'peternak' }) => {
               type="number"
               min="0"
               step="any"
-              placeholder="Contoh: 500"
               name="cowTargetWeight"
               value={formData.cowTargetWeight}
               onChange={handleChange}
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all h-[42px]"
               required
             />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-[#162033] mb-1.5 font-body">
+              Kandang Penempatan <span className="text-rose-500">*</span>
+            </label>
+            <select
+              name="cowBarnID"
+              value={formData.cowBarnID}
+              onChange={handleChange}
+              className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all cursor-pointer h-[42px]"
+              required
+            >
+              {barns && barns.length > 0 ? (
+                barns.map(b => (
+                  <option key={b.barnID || b.id_kandang} value={b.barnID || b.id_kandang}>
+                    {b.barnName || b.nama_kandang}
+                  </option>
+                ))
+              ) : (
+                <>
+                  <option value="KDG-A01">Kandang A (Utama)</option>
+                  <option value="KDG-B01">Kandang B</option>
+                </>
+              )}
+            </select>
           </div>
 
           <div>
@@ -1139,7 +1159,7 @@ const SapiPage = ({ role = 'peternak' }) => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             onError={(e) => {
                               e.target.onerror = null;
-                              e.target.src = COW_FALLBACK_IMAGES[(cowNum - 1) % COW_FALLBACK_IMAGES.length];
+                              e.target.style.display = 'none';
                             }}
                           />
                         </div>

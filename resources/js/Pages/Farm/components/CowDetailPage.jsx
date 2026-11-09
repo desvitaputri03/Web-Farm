@@ -323,7 +323,7 @@ export default function CowDetailPage({
   const purchasePrice = cowData?.harga_beli || cowData?.cowPurchasePrice;
   const numMatch = String(rawCode).match(/\d+$/);
   const cowNum = numMatch ? parseInt(numMatch[0], 10) : 1;
-  const photoUrl = cowData?.foto_sapi || cowData?.cowPhoto || `/images/cows/cow${((cowNum - 1) % 6) + 1}.jpg`;
+  const photoUrl = (cowData?.foto_sapi && String(cowData.foto_sapi).trim() !== '') ? cowData.foto_sapi : ((cowData?.cowPhoto && String(cowData.cowPhoto).trim() !== '') ? cowData.cowPhoto : null);
 
   const phy = cowData?.fisiologis || cowData?.physiology || {};
   const initWeight = phy.bobot_awal ?? phy.phyInitialWeight ?? cowData?.berat_awal_beli ?? cowData?.cowInitialWeight ?? '-';
@@ -671,7 +671,7 @@ export default function CowDetailPage({
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = `/images/cows/cow${((cowNum - 1) % 6) + 1}.jpg`;
+                  e.target.style.display = 'none';
                 }}
               />
             ) : (
