@@ -1,0 +1,218 @@
+{
+  "info": {
+    "_postman_id": "simantra-api-collection-2026",
+    "name": "SIMANTRA RESTful API Collection (Tugas Akhir)",
+    "description": "Koleksi Endpoint RESTful API Sistem Manajemen Peternakan Sapi (SIMANTRA) untuk pengujian Postman.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Telemetri Sensor Suhu Tubuh",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_sapi\": 1,\n  \"suhu_tubuh\": 38.6,\n  \"waktu_data\": \"2026-08-21 08:30:00\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/sensor/fisiologis",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "sensor",
+            "fisiologis"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Telemetri Sensor Perilaku IMU",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_sapi\": 1,\n  \"aktivitas\": \"Ruminasi\",\n  \"waktu_mulai\": \"2026-08-21 07:00:00\",\n  \"waktu_selesai\": \"2026-08-21 08:15:00\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/sensor/imu",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "sensor",
+            "imu"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Telemetri Sensor Timbangan Pakan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_sapi\": 1,\n  \"id_tempat_makan\": 1,\n  \"pakan_awal\": 35.0,\n  \"sisa_pakan\": 3.5,\n  \"volume_air\": 40.0\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/sensor/pakan",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "sensor",
+            "pakan"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Telemetri Sensor Lingkungan Kandang",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_kandang\": 1,\n  \"suhu_lingkungan\": 28.5,\n  \"kelembapan\": 72.0,\n  \"pencahayaan\": 320,\n  \"kondisi_lantai\": \"Bersih\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/sensor/lingkungan",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "sensor",
+            "lingkungan"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Analisis 7 Indikator Peternakan",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/sensor/analisa",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "sensor",
+            "analisa"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Pengujian Error Sapi Tidak Ditemukan (404 Test)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_sapi\": 9999,\n  \"suhu_tubuh\": 38.5\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/sensor/fisiologis",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "sensor",
+            "fisiologis"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,370 @@
+{
+	"info": {
+		"_postman_id": "simantra-api-collection-2026-indonesia",
+		"name": "SIMANTRA Peternakan Sapi REST API (Dukungan Bahasa Indonesia & English)",
+		"description": "Kumpulan Endpoint RESTful API SIMANTRA yang mendukung nama field Bahasa Indonesia (id_kandang, nama_kandang, id_sapi, jenis_kelamin, ras, suhu, kelembapan, dll) dan English.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Kandang (Barns)",
+			"item": [
+				{
+					"name": "GET All Barns",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/barns", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "barns"] }
+					}
+				},
+				{
+					"name": "GET Detail Barn (ID 1)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/barns/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "barns", "1"] }
+					}
+				},
+				{
+					"name": "POST Create Barn (Bahasa Indonesia)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id_kandang\": \"1\",\n  \"nama_kandang\": \"Kandang Utama 1\",\n  \"lokasi\": \"Blok A\",\n  \"kapasitas\": 25,\n  \"suhu\": 27.5,\n  \"kelembapan\": 68.0,\n  \"cahaya\": 350\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/barns", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "barns"] }
+					}
+				},
+				{
+					"name": "PUT Update Barn (Bahasa Indonesia)",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nama_kandang\": \"Kandang Utama 1 (Renovasi)\",\n  \"suhu\": 26.5,\n  \"kelembapan\": 65.0\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/barns/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "barns", "1"] }
+					}
+				},
+				{
+					"name": "DELETE Barn (ID 1)",
+					"request": {
+						"method": "DELETE",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/barns/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "barns", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Sapi (Cows)",
+			"item": [
+				{
+					"name": "GET All Cows",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/cows", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "cows"] }
+					}
+				},
+				{
+					"name": "GET Detail Cow (ID 1)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/cows/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "cows", "1"] }
+					}
+				},
+				{
+					"name": "POST Create Cow (Bahasa Indonesia)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id_sapi\": \"1\",\n  \"jenis_kelamin\": \"Jantan\",\n  \"tanggal_lahir\": \"2023-01-15\",\n  \"ras\": \"Limosin\",\n  \"riwayat\": \"Sapi sehat dan lincah\",\n  \"harga_beli\": 12500000,\n  \"id_kandang\": \"1\"\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/cows", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "cows"] }
+					}
+				},
+				{
+					"name": "PUT Update Cow (Bahasa Indonesia)",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ras\": \"Limosin Super\",\n  \"harga_beli\": 13000000\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/cows/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "cows", "1"] }
+					}
+				},
+				{
+					"name": "DELETE Cow (ID 1)",
+					"request": {
+						"method": "DELETE",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/cows/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "cows", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Fisiologis (Physiologies)",
+			"item": [
+				{
+					"name": "GET All Physiologies",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/physiologies", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "physiologies"] }
+					}
+				},
+				{
+					"name": "POST Create Physiology (Bahasa Indonesia)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id_sapi\": \"1\",\n  \"status_kesehatan\": \"Sehat\",\n  \"berat_awal\": 320,\n  \"berat_target\": 500,\n  \"berat_saat_ini\": 385,\n  \"suhu_tubuh\": 38.6,\n  \"catatan_kesehatan\": \"Kondisi tubuh sangat baik\"\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/physiologies", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "physiologies"] }
+					}
+				},
+				{
+					"name": "PUT Update Physiology (Bahasa Indonesia)",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"berat_saat_ini\": 392,\n  \"suhu_tubuh\": 38.4\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/physiologies/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "physiologies", "1"] }
+					}
+				},
+				{
+					"name": "DELETE Physiology (ID 1)",
+					"request": {
+						"method": "DELETE",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/physiologies/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "physiologies", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Log Perilaku (Behavior Logs)",
+			"item": [
+				{
+					"name": "GET All Behavior Logs",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/behavior-logs", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "behavior-logs"] }
+					}
+				},
+				{
+					"name": "POST Create Behavior Log (Bahasa Indonesia)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id_sapi\": \"1\",\n  \"aktivitas\": \"Makan\",\n  \"waktu_mulai\": \"2026-08-13 08:00:00\",\n  \"waktu_selesai\": \"2026-08-13 08:45:00\",\n  \"sumber_data\": \"Input Manual\"\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/behavior-logs", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "behavior-logs"] }
+					}
+				},
+				{
+					"name": "PUT Update Behavior Log (Bahasa Indonesia)",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"aktivitas\": \"Ruminasi\"\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/behavior-logs/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "behavior-logs", "1"] }
+					}
+				},
+				{
+					"name": "DELETE Behavior Log (ID 1)",
+					"request": {
+						"method": "DELETE",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/behavior-logs/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "behavior-logs", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Stasiun Pakan (Feeding Stations)",
+			"item": [
+				{
+					"name": "GET All Feeding Stations",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/feeding-stations", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feeding-stations"] }
+					}
+				},
+				{
+					"name": "POST Create Feeding Station (Bahasa Indonesia)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kode_stasiun\": \"STN-A1\",\n  \"nama_stasiun\": \"Stasiun Pakan 1\",\n  \"tipe_stasiun\": \"makan\",\n  \"lokasi_stasiun\": \"Blok A\"\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/feeding-stations", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feeding-stations"] }
+					}
+				},
+				{
+					"name": "PUT Update Feeding Station (Bahasa Indonesia)",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nama_stasiun\": \"Stasiun Pakan Utama\",\n  \"tipe_stasiun\": \"campur\"\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/feeding-stations/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feeding-stations", "1"] }
+					}
+				},
+				{
+					"name": "DELETE Feeding Station (ID 1)",
+					"request": {
+						"method": "DELETE",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/feeding-stations/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feeding-stations", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "6. Log Pakan & Air (Feed Logs)",
+			"item": [
+				{
+					"name": "GET All Feed Logs",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/feed-logs", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feed-logs"] }
+					}
+				},
+				{
+					"name": "POST Create Feed Log (Bahasa Indonesia)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id_sapi\": \"1\",\n  \"komposisi_pakan\": \"Rumput Gajah + Konsentrat\",\n  \"pakan_awal\": 18.0,\n  \"sisa_pakan\": 2.5,\n  \"frekuensi\": 2,\n  \"kualitas_air\": \"Air Jernih\",\n  \"air_awal\": 25.0,\n  \"sisa_air\": 5.0\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/feed-logs", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feed-logs"] }
+					}
+				},
+				{
+					"name": "PUT Update Feed Log (Bahasa Indonesia)",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"komposisi_pakan\": \"Rumput Fermentasi\",\n  \"pakan_awal\": 20.0\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/feed-logs/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feed-logs", "1"] }
+					}
+				},
+				{
+					"name": "DELETE Feed Log (ID 1)",
+					"request": {
+						"method": "DELETE",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/feed-logs/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "feed-logs", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "7. Sensor IoT Ingestion",
+			"item": [
+				{
+					"name": "POST Sensor Feed Ingest",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id_sapi\": \"1\",\n  \"pakan_awal\": 15.0,\n  \"sisa_pakan\": 1.5\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/sensor/feed", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "sensor", "feed"] }
+					}
+				},
+				{
+					"name": "POST Sensor Barn Ingest",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id_kandang\": \"1\",\n  \"suhu_kandang\": 28.2,\n  \"kelembapan\": 66.5,\n  \"cahaya\": 400\n}"
+						},
+						"url": { "raw": "http://localhost:8000/api/sensor/barn", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "sensor", "barn"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "8. Analytics & Calculations",
+			"item": [
+				{
+					"name": "GET Feed Ideal Analytics (Sapi 1)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/analytics/feed-ideal/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "analytics", "feed-ideal", "1"] }
+					}
+				},
+				{
+					"name": "GET Feed Total Population",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/analytics/feed-total", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "analytics", "feed-total"] }
+					}
+				},
+				{
+					"name": "GET Feed Cost Calculation",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/analytics/feed-cost?price_per_kg=3500", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "analytics", "feed-cost"], "query": [{ "key": "price_per_kg", "value": "3500" }] }
+					}
+				},
+				{
+					"name": "GET Weight Change Analytics (Sapi 1)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/analytics/weight-change/1", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "analytics", "weight-change", "1"] }
+					}
+				},
+				{
+					"name": "GET Profitability Calculation (Sapi 1)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "http://localhost:8000/api/analytics/profit/1?market_price_per_kg=75000", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "analytics", "profit", "1"], "query": [{ "key": "market_price_per_kg", "value": "75000" }] }
+					}
+				}
+			]
+		}
+	]
+}
