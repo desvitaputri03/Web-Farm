@@ -851,7 +851,6 @@ const SapiPage = ({ role = 'peternak' }) => {
               list="sapi-ras-options"
               value={formData.cowBreed}
               onChange={handleChange}
-              placeholder="Ketik atau pilih ras (cth: Limousin, Brahman, Bali...)"
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all h-[42px]"
               required
             />

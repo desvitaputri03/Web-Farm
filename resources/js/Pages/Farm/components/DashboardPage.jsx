@@ -28,7 +28,7 @@ import {
   HeartPulse
 } from 'lucide-react';
 
-// 6 Foto Sapi Nyata di Peternakan Berkualitas Tinggi
+
 const COW_FALLBACK_IMAGES = [
   '/images/cows/cow1.jpg',
   '/images/cows/cow2.jpg',
@@ -38,7 +38,6 @@ const COW_FALLBACK_IMAGES = [
   '/images/cows/cow6.jpg'
 ];
 
-// Fallback Unit Kandang (Kandang A & Kandang B)
 const FALLBACK_BARNS = [
   {
     id_kandang: 'KDG-A01',
@@ -699,7 +698,6 @@ export default function DashboardPage({ onNavigate }) {
                       list="dashboard-ras-options"
                       value={addCowForm.cowBreed}
                       onChange={(e) => setAddCowForm({ ...addCowForm, cowBreed: e.target.value })}
-                      placeholder="Ketik atau pilih ras (cth: Limousin, Bali...)"
                       className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
                       required
                     />
