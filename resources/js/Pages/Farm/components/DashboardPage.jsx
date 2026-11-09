@@ -625,38 +625,37 @@ export default function DashboardPage({ onNavigate }) {
             </div>
           )}
 
-          {/* Banner Rangkuman Kandang Aktif */}
-          <div className="bg-[#12355B] text-white rounded-2xl p-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="bg-white/15 px-3 py-0.5 rounded-full text-xs font-bold tracking-wider uppercase">
-                  Unit Kandang Terpilih
-                </span>
-                <span className="text-xs text-white/80">
-                  Kapasitas: {selectedBarn.kapasitas_kandang || selectedBarn.barnCapacity || 10} Ekor
-                </span>
+          {/* Banner Rangkuman Kandang Aktif - hanya tampil saat bukan di form tambah sapi */}
+          {!isAddCowOpen && (
+            <div className="bg-[#12355B] text-white rounded-2xl p-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="bg-white/15 px-3 py-0.5 rounded-full text-xs font-bold tracking-wider uppercase">
+                    Unit Kandang Terpilih
+                  </span>
+                  <span className="text-xs text-white/80">
+                    Kapasitas: {selectedBarn.kapasitas_kandang || selectedBarn.barnCapacity || 10} Ekor
+                  </span>
+                </div>
+                <h2 className="text-2xl font-bold font-heading">
+                  {selectedBarn.nama_kandang || selectedBarn.barnName}
+                </h2>
+                <div className="flex flex-wrap items-center gap-4 text-xs text-white/90 pt-1">
+                  <span className="flex items-center gap-1.5">
+                    <Thermometer className="h-4 w-4 text-amber-300" />
+                    Suhu: <b>{selectedBarn.suhu_kandang || selectedBarn.barnTemperature || 28.2} °C</b>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Droplets className="h-4 w-4 text-blue-300" />
+                    Kelembapan: <b>{selectedBarn.kelembapan_kandang || selectedBarn.barnHumidity || 72.0}%</b>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                    Sanitasi Lantai: <b>{selectedBarn.kondisi_lantai || selectedBarn.barnFloorCondition || 'Bersih'}</b>
+                  </span>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold font-heading">
-                {selectedBarn.nama_kandang || selectedBarn.barnName}
-              </h2>
-              <div className="flex flex-wrap items-center gap-4 text-xs text-white/90 pt-1">
-                <span className="flex items-center gap-1.5">
-                  <Thermometer className="h-4 w-4 text-amber-300" />
-                  Suhu: <b>{selectedBarn.suhu_kandang || selectedBarn.barnTemperature || 28.2} °C</b>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Droplets className="h-4 w-4 text-blue-300" />
-                  Kelembapan: <b>{selectedBarn.kelembapan_kandang || selectedBarn.barnHumidity || 72.0}%</b>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                  Sanitasi Lantai: <b>{selectedBarn.kondisi_lantai || selectedBarn.barnFloorCondition || 'Bersih'}</b>
-                </span>
-              </div>
-            </div>
 
-            {/* Tombol Input Sapi Langsung ke Kandang Ini (Otomatis sembunyi saat form dibuka) */}
-            {!isAddCowOpen && (
               <div className="shrink-0 flex flex-wrap gap-2.5">
                 <button
                   type="button"
@@ -667,8 +666,8 @@ export default function DashboardPage({ onNavigate }) {
                   <span>Tambah Sapi di Kandang Ini</span>
                 </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Section: Daftar Sapi di Kandang Ini ATAU Form Tambah Sapi ATAU Detail Sapi */}
           {isAddCowOpen ? (
