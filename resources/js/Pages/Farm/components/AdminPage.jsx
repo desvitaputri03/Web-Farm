@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, router } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
+import axios from 'axios';
 import {
   Plus,
   Edit2,
@@ -121,7 +122,7 @@ const AdminPage = ({ view = 'overview' }) => {
     setIsFormOpen(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.email.trim()) {
@@ -143,52 +144,43 @@ const AdminPage = ({ view = 'overview' }) => {
     }
 
     if (editId) {
-      router.put(route('admin.users.update', editId), payload, {
-        preserveState: true,
-        preserveScroll: true,
-        onSuccess: () => {
-          resetForm();
-          refetch();
-          setToast({ message: 'Data pengguna berhasil diperbarui!', type: 'success' });
-        },
-        onError: (errs) => {
-          const msg = Object.values(errs)[0] || 'Gagal memperbarui data pengguna.';
-          setErrorMsg(msg);
-        },
-      });
+      try {
+        await axios.put(route('admin.users.update', editId), payload);
+        resetForm();
+        refetch();
+        setToast({ message: 'Data pengguna berhasil diperbarui!', type: 'success' });
+      } catch (err) {
+        const errs = err.response?.data?.errors || {};
+        const msg = Object.values(errs)[0] || 'Gagal memperbarui data pengguna.';
+        setErrorMsg(msg);
+      }
     } else {
-      router.post(route('admin.users.store'), payload, {
-        preserveState: true,
-        preserveScroll: true,
-        onSuccess: () => {
-          resetForm();
-          refetch();
-          setToast({ message: 'Pengguna baru berhasil ditambahkan!', type: 'success' });
-        },
-        onError: (errs) => {
-          const msg = Object.values(errs)[0] || 'Gagal menambahkan pengguna baru.';
-          setErrorMsg(msg);
-        },
-      });
+      try {
+        await axios.post(route('admin.users.store'), payload);
+        resetForm();
+        refetch();
+        setToast({ message: 'Pengguna baru berhasil ditambahkan!', type: 'success' });
+      } catch (err) {
+        const errs = err.response?.data?.errors || {};
+        const msg = Object.values(errs)[0] || 'Gagal menambahkan pengguna baru.';
+        setErrorMsg(msg);
+      }
     }
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!deleteId) return;
-    router.delete(route('admin.users.destroy', deleteId), {
-      preserveState: true,
-      preserveScroll: true,
-      onSuccess: () => {
-        setDeleteId(null);
-        refetch();
-        setToast({ message: 'Data pengguna berhasil dihapus.', type: 'success' });
-      },
-      onError: (errs) => {
-        setDeleteId(null);
-        const msg = Object.values(errs)[0] || 'Gagal menghapus pengguna.';
-        setToast({ message: msg, type: 'danger' });
-      },
-    });
+    try {
+      await axios.delete(route('admin.users.destroy', deleteId));
+      setDeleteId(null);
+      refetch();
+      setToast({ message: 'Data pengguna berhasil dihapus.', type: 'success' });
+    } catch (err) {
+      setDeleteId(null);
+      const errs = err.response?.data?.errors || {};
+      const msg = Object.values(errs)[0] || 'Gagal menghapus pengguna.';
+      setToast({ message: msg, type: 'danger' });
+    }
   };
 
   if (view === 'overview') {

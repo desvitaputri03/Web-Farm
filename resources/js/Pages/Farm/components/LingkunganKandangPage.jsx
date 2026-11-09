@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { router } from '@inertiajs/react';
 import axios from 'axios';
 import {
   Thermometer,
@@ -181,7 +180,7 @@ export default function LingkunganKandangPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSaveEnvironment = (e) => {
+  const handleSaveEnvironment = async (e) => {
     e.preventDefault();
 
     const payload = {
@@ -202,21 +201,16 @@ export default function LingkunganKandangPage() {
 
     const targetID = formData.barnID || 'KDG-A01';
 
-    router.put(`/farm/barns/${targetID}`, payload, {
-      preserveScroll: true,
-      onSuccess: () => {
-        fetchBarns();
-        setIsModalOpen(false);
-        setToastMsg('Catatan kondisi lingkungan kandang berhasil disimpan!');
-        setTimeout(() => setToastMsg(''), 4000);
-      },
-      onError: () => {
-        setBarns(prev => prev.map(b => (b.id_kandang === targetID || b.barnID === targetID) ? { ...b, ...payload } : b));
-        setIsModalOpen(false);
-        setToastMsg('Catatan kondisi lingkungan kandang berhasil diperbarui!');
-        setTimeout(() => setToastMsg(''), 4000);
-      }
-    });
+    try {
+      await axios.put(`/farm/barns/${targetID}`, payload);
+      fetchBarns();
+    } catch {
+      setBarns(prev => prev.map(b => (b.id_kandang === targetID || b.barnID === targetID) ? { ...b, ...payload } : b));
+    } finally {
+      setIsModalOpen(false);
+      setToastMsg('Catatan kondisi lingkungan kandang berhasil disimpan!');
+      setTimeout(() => setToastMsg(''), 4000);
+    }
   };
 
   // Ringkasan metrik kandang utama
