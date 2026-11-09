@@ -1066,33 +1066,10 @@ export default function CowDetailPage({
       {/* ======================================================== */}
       {activeTab === 'medis' && (
         <div className="bg-white border border-[#DCE5F0] rounded-2xl shadow-xs overflow-hidden">
-          <div className="p-5 border-b border-[#DCE5F0] flex items-center justify-between gap-4">
-            <div>
-              <h3 className="text-sm font-bold text-[#162033] font-heading">
-                Rekam Medis Mantri
-              </h3>
-            </div>
-
-            {canEditMedical && (
-              <button
-                type="button"
-                onClick={() => {
-                  setExamForm({
-                    kondisi_kesehatan: 'Sehat',
-                    gejala_klinis: '',
-                    diagnosa_penyakit: '',
-                    tindakan_medis: '',
-                    rekomendasi_pakan: '',
-                    tanggal_pemeriksaan: new Date().toISOString().split('T')[0],
-                  });
-                  setActiveForm('exam');
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#12355B] hover:bg-[#0D2847] text-white text-xs font-semibold rounded-xl shadow-xs transition cursor-pointer"
-              >
-                <Plus className="h-4 w-4" />
-                <span>Tambah Pemeriksaan Medis</span>
-              </button>
-            )}
+          <div className="p-5 border-b border-[#DCE5F0]">
+            <h3 className="text-sm font-bold text-[#162033] font-heading">
+              Rekam Medis Mantri
+            </h3>
           </div>
 
           <div className="overflow-x-auto">
