@@ -604,30 +604,26 @@ export default function DashboardPage({ onNavigate }) {
         /* LEVEL 2: TAMPILAN DALAM KANDANG TERPILIH                 */
         /* ======================================================== */
         <div className="space-y-6 animate-fadeIn">
-          {/* Navigasi Breadcrumb & Tombol Kembali */}
-          <div className="flex items-center justify-between gap-3 bg-white border border-[#DCE5F0] p-4 rounded-2xl shadow-xs">
-            <button
-              type="button"
-              onClick={() => {
-                if (isAddCowOpen) {
-                  setIsAddCowOpen(false);
-                } else {
-                  setSelectedBarn(null);
-                }
-              }}
-              className="p-2.5 rounded-xl border border-[#DCE5F0] hover:bg-slate-50 text-[#162033] transition cursor-pointer shrink-0"
-              title={isAddCowOpen ? "Kembali ke Kandang" : "Kembali ke Semua Kandang"}
-            >
-              <ChevronLeft className="h-5 w-5 stroke-2" />
-            </button>
+          {/* Navigasi Breadcrumb & Tombol Kembali - hanya tampil saat BUKAN di form tambah sapi */}
+          {!isAddCowOpen && (
+            <div className="flex items-center justify-between gap-3 bg-white border border-[#DCE5F0] p-4 rounded-2xl shadow-xs">
+              <button
+                type="button"
+                onClick={() => setSelectedBarn(null)}
+                className="p-2.5 rounded-xl border border-[#DCE5F0] hover:bg-slate-50 text-[#162033] transition cursor-pointer shrink-0"
+                title="Kembali ke Semua Kandang"
+              >
+                <ChevronLeft className="h-5 w-5 stroke-2" />
+              </button>
 
-            <div className="flex items-center gap-2">
-              <div className="text-xs font-semibold text-[#12355B] bg-slate-100 px-3 py-1.5 rounded-xl border border-[#DCE5F0] flex items-center gap-1.5">
-                <Warehouse className="h-3.5 w-3.5 text-[#12355B]" />
-                <span>Unit Kandang</span>
+              <div className="flex items-center gap-2">
+                <div className="text-xs font-semibold text-[#12355B] bg-slate-100 px-3 py-1.5 rounded-xl border border-[#DCE5F0] flex items-center gap-1.5">
+                  <Warehouse className="h-3.5 w-3.5 text-[#12355B]" />
+                  <span>Unit Kandang</span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Banner Rangkuman Kandang Aktif */}
           <div className="bg-[#12355B] text-white rounded-2xl p-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
