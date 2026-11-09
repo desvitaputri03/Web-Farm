@@ -848,11 +848,24 @@ const SapiPage = ({ role = 'peternak' }) => {
             <input
               type="text"
               name="cowBreed"
+              list="sapi-ras-options"
               value={formData.cowBreed}
               onChange={handleChange}
+              placeholder="Ketik atau pilih ras (cth: Limousin, Brahman, Bali...)"
               className="w-full bg-white border border-[#DCE5F0] focus:border-[#12355B] focus:ring-4 focus:ring-slate-500/10 rounded-xl px-4 py-2.5 text-xs text-[#162033] font-medium outline-none transition-all h-[42px]"
               required
             />
+            <datalist id="sapi-ras-options">
+              <option value="Brangus" />
+              <option value="Brahman" />
+              <option value="Angus" />
+              <option value="Sapi Bali" />
+              <option value="Limousin" />
+              <option value="Simmental" />
+              <option value="Peranakan Ongole (PO)" />
+              <option value="Madura" />
+              <option value="Wagyu" />
+            </datalist>
           </div>
 
           <div>

@@ -694,21 +694,26 @@ export default function DashboardPage({ onNavigate }) {
                     <label className="block text-xs font-semibold text-[#162033] mb-1">
                       Ras Sapi *
                     </label>
-                    <select
+                    <input
+                      type="text"
+                      list="dashboard-ras-options"
                       value={addCowForm.cowBreed}
                       onChange={(e) => setAddCowForm({ ...addCowForm, cowBreed: e.target.value })}
+                      placeholder="Ketik atau pilih ras (cth: Limousin, Bali...)"
                       className="w-full bg-white border border-[#DCE5F0] rounded-xl px-3 py-2 text-xs font-medium text-[#162033] outline-none focus:border-[#12355B]"
                       required
-                    >
-                      <option value="">-- Pilih Ras Sapi --</option>
-                      <option value="Brangus">Brangus</option>
-                      <option value="Brahman">Brahman</option>
-                      <option value="Angus">Angus</option>
-                      <option value="Sapi Bali">Sapi Bali</option>
-                      <option value="Limousin">Limousin</option>
-                      <option value="Simmental">Simmental</option>
-                      <option value="Peranakan Ongole (PO)">Peranakan Ongole (PO)</option>
-                    </select>
+                    />
+                    <datalist id="dashboard-ras-options">
+                      <option value="Brangus" />
+                      <option value="Brahman" />
+                      <option value="Angus" />
+                      <option value="Sapi Bali" />
+                      <option value="Limousin" />
+                      <option value="Simmental" />
+                      <option value="Peranakan Ongole (PO)" />
+                      <option value="Madura" />
+                      <option value="Wagyu" />
+                    </datalist>
                   </div>
 
                   <div>
