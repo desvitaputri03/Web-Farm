@@ -272,4 +272,28 @@ class ExaminationController extends Controller
             ]
         ]);
     }
+
+    /**
+     * DELETE /farm/examinations/{id}
+     */
+    public function destroy($id): JsonResponse
+    {
+        $exam = ExaminationRecord::where('id_pemeriksaan', $id)
+            ->orWhere('id', $id)
+            ->first();
+
+        if (!$exam) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data rekam medis tidak ditemukan.'
+            ], 404);
+        }
+
+        $exam->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Catatan pemeriksaan berhasil dihapus.'
+        ]);
+    }
 }

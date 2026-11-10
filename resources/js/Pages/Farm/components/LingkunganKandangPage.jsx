@@ -566,11 +566,10 @@ export default function LingkunganKandangPage() {
                                   type="button"
                                   onClick={() => handleDeleteBarn(b.id_kandang || b.barnID, b.barnName || b.nama_kandang || 'Kandang')}
                                   disabled={deletingId === (b.id_kandang || b.barnID)}
-                                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 border border-rose-200 text-[11px] font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                  className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                                   title="Hapus data kandang ini"
                                 >
                                   <Trash2 className="h-3.5 w-3.5" />
-                                  <span>Hapus</span>
                                 </button>
                               </td>
                             </tr>

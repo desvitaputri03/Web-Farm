@@ -1,1 +1,0 @@
-import{j as r}from"./app-C8xai1Fy.js";function e({className:t="",...n}){return r.jsx("span",{...n,className:`font-black text-[#12355B] tracking-wider uppercase font-brand text-2xl ${t}`,children:"SIMANTRA"})}export{e as A};

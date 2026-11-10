@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/farm/examinations', [\App\Http\Controllers\Api\ExaminationController::class, 'store'])->name('examinations.store');
+    Route::delete('/farm/examinations/{id}', [\App\Http\Controllers\Api\ExaminationController::class, 'destroy'])->name('examinations.destroy');
 
     // Profil pengguna
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

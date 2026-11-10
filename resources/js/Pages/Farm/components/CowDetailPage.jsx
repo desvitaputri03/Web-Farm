@@ -18,7 +18,8 @@ import {
   Warehouse,
   X,
   FileText,
-  Camera
+  Camera,
+  Trash2
 } from 'lucide-react';
 
 export default function CowDetailPage({
@@ -340,6 +341,53 @@ export default function CowDetailPage({
 
   const canEditGeneral = role === 'peternak' || role === 'admin';
   const canEditMedical = role === 'mantri' || role === 'admin';
+
+  const [deletingId, setDeletingId] = useState(null);
+
+  const handleDeleteFeedLog = (logId) => {
+    if (!window.confirm('Hapus catatan pemberian pakan ini?')) return;
+    setDeletingId(logId);
+    axios.delete(`/farm/feed/${logId}`)
+      .then(() => {
+        showToast('Catatan pakan berhasil dihapus.');
+        setFeedLogs(prev => prev.filter(item => (item.id_log_pakan !== logId && item.id !== logId)));
+        if (onRefresh) onRefresh();
+      })
+      .catch(() => {
+        showToast('Gagal menghapus catatan pakan.', 'error');
+      })
+      .finally(() => setDeletingId(null));
+  };
+
+  const handleDeleteBehaviorLog = (logId) => {
+    if (!window.confirm('Hapus log aktivitas perilaku ini?')) return;
+    setDeletingId(logId);
+    axios.delete(`/farm/behavior/${logId}`)
+      .then(() => {
+        showToast('Log aktivitas perilaku berhasil dihapus.');
+        setBehaviorLogs(prev => prev.filter(item => (item.id_log_perilaku !== logId && item.id !== logId)));
+        if (onRefresh) onRefresh();
+      })
+      .catch(() => {
+        showToast('Gagal menghapus log aktivitas perilaku.', 'error');
+      })
+      .finally(() => setDeletingId(null));
+  };
+
+  const handleDeleteExam = (examId) => {
+    if (!window.confirm('Hapus catatan rekam medis ini?')) return;
+    setDeletingId(examId);
+    axios.delete(`/farm/examinations/${examId}`)
+      .then(() => {
+        showToast('Catatan rekam medis berhasil dihapus.');
+        setExamRecords(prev => prev.filter(item => (item.id_pemeriksaan !== examId && item.id !== examId)));
+        if (onRefresh) onRefresh();
+      })
+      .catch(() => {
+        showToast('Gagal menghapus catatan rekam medis.', 'error');
+      })
+      .finally(() => setDeletingId(null));
+  };
 
   // ==========================================
   // RENDER DEDICATED IN-PAGE FORM (INLINE CARD WITH SIDEBAR VISIBLE)
@@ -913,25 +961,38 @@ export default function CowDetailPage({
                   <th className="px-5 py-3.5">Pakan Diberikan</th>
                   <th className="px-5 py-3.5">Sisa Pakan</th>
                   <th className="px-5 py-3.5">Konsumsi Bersih</th>
+                  <th className="px-5 py-3.5 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#DCE5F0]">
                 {feedLogs.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-5 py-8 text-center text-slate-400 font-medium">
+                    <td colSpan={6} className="px-5 py-8 text-center text-slate-400 font-medium">
                       Belum ada data pakan untuk sapi ini.
                     </td>
                   </tr>
                 ) : (
                   feedLogs.map((item, idx) => {
                     const consumed = (Number(item.pakan_awal || 0) - Number(item.sisa_pakan || 0)).toFixed(1);
+                    const logId = item.id_log_pakan || item.id;
                     return (
-                      <tr key={item.id_log_pakan || idx} className="hover:bg-slate-50/70 transition">
+                      <tr key={logId || idx} className="hover:bg-slate-50/70 transition">
                         <td className="px-5 py-3 font-medium text-[#162033]">{fmtDate(item.tanggal_pencatatan || item.created_at)}</td>
                         <td className="px-5 py-3 text-[#162033]">{item.komposisi_pakan || 'Konsentrat & Hijauan'}</td>
                         <td className="px-5 py-3 text-[#162033] font-semibold">{item.pakan_awal || 0} kg</td>
                         <td className="px-5 py-3 text-[#64748B]">{item.sisa_pakan || 0} kg</td>
                         <td className="px-5 py-3 font-bold text-[#12355B]">{consumed} kg</td>
+                        <td className="px-5 py-3 text-center">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteFeedLog(logId)}
+                            disabled={deletingId === logId}
+                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                            title="Hapus catatan pakan ini"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </td>
                       </tr>
                     );
                   })
@@ -973,27 +1034,42 @@ export default function CowDetailPage({
                   <th className="px-5 py-3.5">Waktu Mulai</th>
                   <th className="px-5 py-3.5">Waktu Selesai</th>
                   <th className="px-5 py-3.5">Aktivitas Perilaku</th>
+                  <th className="px-5 py-3.5 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#DCE5F0]">
                 {behaviorLogs.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="px-5 py-8 text-center text-slate-400 font-medium">
+                    <td colSpan={4} className="px-5 py-8 text-center text-slate-400 font-medium">
                       Belum ada catatan aktivitas untuk sapi ini.
                     </td>
                   </tr>
                 ) : (
-                  behaviorLogs.map((item, idx) => (
-                    <tr key={item.id_log_perilaku || idx} className="hover:bg-slate-50/70 transition">
-                      <td className="px-5 py-3 font-medium text-[#162033]">{fmtDateTime(item.waktu_mulai)}</td>
-                      <td className="px-5 py-3 text-[#64748B]">{fmtDateTime(item.waktu_selesai)}</td>
-                      <td className="px-5 py-3">
-                        <span className="font-bold text-[#12355B] px-2.5 py-1 bg-slate-100 rounded-lg border border-[#DCE5F0]">
-                          {item.aktivitas}
-                        </span>
-                      </td>
-                    </tr>
-                  ))
+                  behaviorLogs.map((item, idx) => {
+                    const logId = item.id_log_perilaku || item.id;
+                    return (
+                      <tr key={logId || idx} className="hover:bg-slate-50/70 transition">
+                        <td className="px-5 py-3 font-medium text-[#162033]">{fmtDateTime(item.waktu_mulai)}</td>
+                        <td className="px-5 py-3 text-[#64748B]">{fmtDateTime(item.waktu_selesai)}</td>
+                        <td className="px-5 py-3">
+                          <span className="font-bold text-[#12355B] px-2.5 py-1 bg-slate-100 rounded-lg border border-[#DCE5F0]">
+                            {item.aktivitas}
+                          </span>
+                        </td>
+                        <td className="px-5 py-3 text-center">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteBehaviorLog(logId)}
+                            disabled={deletingId === logId}
+                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                            title="Hapus aktivitas ini"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>
@@ -1080,12 +1156,13 @@ export default function CowDetailPage({
                   <th className="px-5 py-3.5">Kondisi Fisik</th>
                   <th className="px-5 py-3.5">Catatan Diagnosa &amp; Observasi</th>
                   <th className="px-5 py-3.5">Tindakan Medis / Obat</th>
+                  <th className="px-5 py-3.5 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#DCE5F0]">
                 {examRecords.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="px-5 py-8 text-center text-slate-400 font-medium">
+                    <td colSpan={5} className="px-5 py-8 text-center text-slate-400 font-medium">
                       Belum ada riwayat pemeriksaan medis untuk sapi ini.
                     </td>
                   </tr>
@@ -1096,9 +1173,10 @@ export default function CowDetailPage({
                     const rawNotes = String(item.diagnosa_penyakit || item.diagnosis_notes || item.catatan_diagnosa || '-');
                     const diagnosa = item.diagnosa_penyakit || (rawNotes.includes('Diagnosa: ') ? rawNotes.split('Diagnosa: ')[1]?.split(' • ')[0] : rawNotes.split(' • ')[0]) || rawNotes;
                     const tindakan = item.tindakan_medis || (rawNotes.includes('Tindakan: ') ? rawNotes.split('Tindakan: ')[1]?.split(' • ')[0] : '-');
+                    const examId = item.id_pemeriksaan || item.id;
 
                     return (
-                      <tr key={item.id_pemeriksaan || item.id || idx} className="hover:bg-slate-50/70 transition">
+                      <tr key={examId || idx} className="hover:bg-slate-50/70 transition">
                         <td className="px-5 py-3.5 font-medium text-[#162033] whitespace-nowrap">
                           {fmtDate(item.tanggal_pemeriksaan || item.examination_date || item.created_at)}
                         </td>
@@ -1114,6 +1192,17 @@ export default function CowDetailPage({
                         </td>
                         <td className="px-5 py-3.5 text-[#162033] font-medium leading-relaxed max-w-sm">
                           {tindakan}
+                        </td>
+                        <td className="px-5 py-3.5 text-center whitespace-nowrap">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteExam(examId)}
+                            disabled={deletingId === examId}
+                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                            title="Hapus rekam medis ini"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
                         </td>
                       </tr>
                     );
