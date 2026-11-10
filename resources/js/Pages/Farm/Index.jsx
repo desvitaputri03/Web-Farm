@@ -254,7 +254,7 @@ export default function Index({ authUser }) {
         onLogout={handleLogout}
       />
 
-      <div className="flex-1 pl-64 flex flex-col h-screen overflow-hidden min-w-0 bg-[#F4F7FB]">
+      <div className="flex-1 md:pl-64 flex flex-col h-screen overflow-hidden min-w-0 bg-[#F4F7FB]">
         {/* Top Header Bar - Elegan dengan Breadcrumb & Tombol Pill Beranda */}
         <header className="h-14 bg-white/95 backdrop-blur-xs border-b border-[#DCE5F0] px-6 sm:px-8 flex items-center justify-between shrink-0 z-30 font-body">
           <div className="flex items-center gap-3 min-w-0">

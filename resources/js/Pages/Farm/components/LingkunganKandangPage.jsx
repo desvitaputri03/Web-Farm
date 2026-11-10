@@ -17,7 +17,8 @@ import {
   Building2,
   Warehouse,
   Activity,
-  Plus
+  Plus,
+  Trash2
 } from 'lucide-react';
 import SortSelect from './SortSelect';
 import PageHeaderBanner from './PageHeaderBanner';
@@ -31,6 +32,7 @@ export default function LingkunganKandangPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('terbaru');
   const [downloading, setDownloading] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
@@ -209,6 +211,22 @@ export default function LingkunganKandangPage() {
       axios.put(`/farm/barns/${targetID}`, payload).then(() => fetchBarns()).catch(() => {
         setBarns(prev => prev.map(b => (b.id_kandang === targetID || b.barnID === targetID) ? { ...b, ...payload } : b));
       });
+    };
+
+    const handleDeleteBarn = (barnId, barnName) => {
+      if (!window.confirm(`Hapus catatan lingkungan untuk "${barnName}"?`)) return;
+      setDeletingId(barnId);
+      axios.delete(`/farm/barns/${barnId}`)
+        .then(() => {
+          setToastMsg(`Data kandang "${barnName}" berhasil dihapus.`);
+          setTimeout(() => setToastMsg(''), 3000);
+          fetchBarns();
+        })
+        .catch(() => {
+          setToastMsg('Gagal menghapus data. Coba lagi.');
+          setTimeout(() => setToastMsg(''), 3000);
+        })
+        .finally(() => setDeletingId(null));
     };
 
     // Ringkasan metrik kandang utama
@@ -504,7 +522,6 @@ export default function LingkunganKandangPage() {
                   const wind = b.barnWindSpeed ?? b.kecepatan_angin ?? (idx === 0 ? '1.10' : '0.90');
                   const rain = b.barnRainfall ?? b.curah_hujan ?? '0.00';
                   const floor = b.barnFloorCondition ?? b.kondisi_lantai ?? 'Bersih';
-                  const statusEval = evaluateMicroclimate(temp, hum);
 
                   return (
                     <div key={b.id_kandang || b.barnID || idx} className={idx > 0 ? 'border-t-2 border-[#DCE5F0]' : ''}>
@@ -528,7 +545,7 @@ export default function LingkunganKandangPage() {
                               <th className="px-4 py-3.5 text-right">Kecepatan Udara</th>
                               <th className="px-4 py-3.5 text-center">Curah Hujan</th>
                               <th className="px-4 py-3.5 text-center">Keadaan Lantai</th>
-                              <th className="px-4 py-3.5 text-center">Status</th>
+                              <th className="px-4 py-3.5 text-center">Aksi</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
@@ -545,9 +562,16 @@ export default function LingkunganKandangPage() {
                                 </span>
                               </td>
                               <td className="py-3.5 px-4 text-center">
-                                <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold border ${statusEval.badge}`}>
-                                  {statusEval.status}
-                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteBarn(b.id_kandang || b.barnID, b.barnName || b.nama_kandang || 'Kandang')}
+                                  disabled={deletingId === (b.id_kandang || b.barnID)}
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 border border-rose-200 text-[11px] font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                  title="Hapus data kandang ini"
+                                >
+                                  <Trash2 className="h-3.5 w-3.5" />
+                                  <span>Hapus</span>
+                                </button>
                               </td>
                             </tr>
                           </tbody>
