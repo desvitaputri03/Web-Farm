@@ -278,9 +278,12 @@ class ExaminationController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $exam = ExaminationRecord::where('id_pemeriksaan', $id)
-            ->orWhere('id', $id)
-            ->first();
+        $exam = ExaminationRecord::find($id);
+
+        if (!$exam) {
+            $pk = (new ExaminationRecord())->getKeyName();
+            $exam = ExaminationRecord::where($pk, $id)->first();
+        }
 
         if (!$exam) {
             return response()->json([

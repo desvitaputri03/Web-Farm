@@ -811,9 +811,12 @@ class FarmController extends Controller
 
     public function destroyBehavior(Request $request, string $id)
     {
-        $beh = LogPerilaku::where('id_log_perilaku', $id)
-            ->orWhere('id', $id)
-            ->first();
+        $beh = LogPerilaku::find($id);
+
+        if (!$beh) {
+            $pk = (new LogPerilaku())->getKeyName();
+            $beh = LogPerilaku::where($pk, $id)->first();
+        }
 
         if ($beh) {
             $beh->delete();
@@ -1031,9 +1034,12 @@ class FarmController extends Controller
 
     public function destroyFeed(Request $request, string $id)
     {
-        $feed = LogPakan::where('id_log_pakan', $id)
-            ->orWhere('id', $id)
-            ->first();
+        $feed = LogPakan::find($id);
+
+        if (!$feed) {
+            $pk = (new LogPakan())->getKeyName();
+            $feed = LogPakan::where($pk, $id)->first();
+        }
 
         if ($feed) {
             $feed->delete();
