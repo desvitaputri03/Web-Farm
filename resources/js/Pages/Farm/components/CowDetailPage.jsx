@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PageHeaderBanner from './PageHeaderBanner';
+import ConfirmModal from './ConfirmModal';
 import {
   ChevronLeft,
   Beef,
@@ -343,50 +344,52 @@ export default function CowDetailPage({
   const canEditMedical = role === 'mantri' || role === 'admin';
 
   const [deletingId, setDeletingId] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState({ isOpen: false, type: null, id: null, message: '' });
 
-  const handleDeleteFeedLog = (logId) => {
-    if (!window.confirm('Hapus catatan pemberian pakan ini?')) return;
-    setDeletingId(logId);
-    axios.delete(`/farm/feed/${logId}`)
-      .then(() => {
-        showToast('Catatan pakan berhasil dihapus.');
-        setFeedLogs(prev => prev.filter(item => (item.id_log_pakan !== logId && item.id !== logId)));
-        if (onRefresh) onRefresh();
-      })
-      .catch(() => {
-        showToast('Gagal menghapus catatan pakan.', 'error');
-      })
-      .finally(() => setDeletingId(null));
+  const requestDelete = (type, id, message) => {
+    setConfirmDelete({ isOpen: true, type, id, message });
   };
 
-  const handleDeleteBehaviorLog = (logId) => {
-    if (!window.confirm('Hapus log aktivitas perilaku ini?')) return;
-    setDeletingId(logId);
-    axios.delete(`/farm/behavior/${logId}`)
-      .then(() => {
-        showToast('Log aktivitas perilaku berhasil dihapus.');
-        setBehaviorLogs(prev => prev.filter(item => (item.id_log_perilaku !== logId && item.id !== logId)));
-        if (onRefresh) onRefresh();
-      })
-      .catch(() => {
-        showToast('Gagal menghapus log aktivitas perilaku.', 'error');
-      })
-      .finally(() => setDeletingId(null));
-  };
+  const executeDelete = () => {
+    const { type, id } = confirmDelete;
+    if (!type || !id) return;
+    setConfirmDelete({ isOpen: false, type: null, id: null, message: '' });
+    setDeletingId(id);
 
-  const handleDeleteExam = (examId) => {
-    if (!window.confirm('Hapus catatan rekam medis ini?')) return;
-    setDeletingId(examId);
-    axios.delete(`/farm/examinations/${examId}`)
-      .then(() => {
-        showToast('Catatan rekam medis berhasil dihapus.');
-        setExamRecords(prev => prev.filter(item => (item.id_pemeriksaan !== examId && item.id !== examId)));
-        if (onRefresh) onRefresh();
-      })
-      .catch(() => {
-        showToast('Gagal menghapus catatan rekam medis.', 'error');
-      })
-      .finally(() => setDeletingId(null));
+    if (type === 'feed') {
+      axios.delete(`/farm/feed/${id}`)
+        .then(() => {
+          showToast('Catatan pakan berhasil dihapus.');
+          setFeedLogs(prev => prev.filter(item => (item.id_log_pakan !== id && item.id !== id)));
+          if (onRefresh) onRefresh();
+        })
+        .catch(() => {
+          showToast('Gagal menghapus catatan pakan.', 'error');
+        })
+        .finally(() => setDeletingId(null));
+    } else if (type === 'behavior') {
+      axios.delete(`/farm/behavior/${id}`)
+        .then(() => {
+          showToast('Log aktivitas perilaku berhasil dihapus.');
+          setBehaviorLogs(prev => prev.filter(item => (item.id_log_perilaku !== id && item.id !== id)));
+          if (onRefresh) onRefresh();
+        })
+        .catch(() => {
+          showToast('Gagal menghapus log aktivitas perilaku.', 'error');
+        })
+        .finally(() => setDeletingId(null));
+    } else if (type === 'exam') {
+      axios.delete(`/farm/examinations/${id}`)
+        .then(() => {
+          showToast('Catatan rekam medis berhasil dihapus.');
+          setExamRecords(prev => prev.filter(item => (item.id_pemeriksaan !== id && item.id !== id)));
+          if (onRefresh) onRefresh();
+        })
+        .catch(() => {
+          showToast('Gagal menghapus catatan rekam medis.', 'error');
+        })
+        .finally(() => setDeletingId(null));
+    }
   };
 
   // ==========================================
@@ -985,7 +988,7 @@ export default function CowDetailPage({
                         <td className="px-5 py-3 text-center">
                           <button
                             type="button"
-                            onClick={() => handleDeleteFeedLog(logId)}
+                            onClick={() => requestDelete('feed', logId, 'Apakah Anda yakin ingin menghapus catatan pemberian pakan ini?')}
                             disabled={deletingId === logId}
                             className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                             title="Hapus catatan pakan ini"
@@ -1059,7 +1062,7 @@ export default function CowDetailPage({
                         <td className="px-5 py-3 text-center">
                           <button
                             type="button"
-                            onClick={() => handleDeleteBehaviorLog(logId)}
+                            onClick={() => requestDelete('behavior', logId, 'Apakah Anda yakin ingin menghapus log aktivitas perilaku ini?')}
                             disabled={deletingId === logId}
                             className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                             title="Hapus aktivitas ini"
@@ -1196,7 +1199,7 @@ export default function CowDetailPage({
                         <td className="px-5 py-3.5 text-center whitespace-nowrap">
                           <button
                             type="button"
-                            onClick={() => handleDeleteExam(examId)}
+                            onClick={() => requestDelete('exam', examId, 'Apakah Anda yakin ingin menghapus catatan rekam medis ini?')}
                             disabled={deletingId === examId}
                             className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                             title="Hapus rekam medis ini"
@@ -1215,6 +1218,16 @@ export default function CowDetailPage({
       )}
         </>
       )}
+
+      <ConfirmModal
+        isOpen={confirmDelete.isOpen}
+        title="Konfirmasi Hapus"
+        message={confirmDelete.message}
+        confirmText="Hapus"
+        cancelText="Batal"
+        onConfirm={executeDelete}
+        onCancel={() => setConfirmDelete({ isOpen: false, type: null, id: null, message: '' })}
+      />
     </div>
   );
 }

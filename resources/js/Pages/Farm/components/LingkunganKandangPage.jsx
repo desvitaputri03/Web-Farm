@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import SortSelect from './SortSelect';
 import PageHeaderBanner from './PageHeaderBanner';
+import ConfirmModal from './ConfirmModal';
 import html2pdf from 'html2pdf.js';
 
 export default function LingkunganKandangPage() {
@@ -36,6 +37,7 @@ export default function LingkunganKandangPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState({ isOpen: false, id: null, name: '' });
 
   const [formData, setFormData] = useState({
     barnID: 'KDG-A01',
@@ -213,8 +215,14 @@ export default function LingkunganKandangPage() {
       });
     };
 
-    const handleDeleteBarn = (barnId, barnName) => {
-      if (!window.confirm(`Hapus catatan lingkungan untuk "${barnName}"?`)) return;
+    const requestDeleteBarn = (barnId, barnName) => {
+      setConfirmDelete({ isOpen: true, id: barnId, name: barnName });
+    };
+
+    const executeDeleteBarn = () => {
+      const { id: barnId, name: barnName } = confirmDelete;
+      if (!barnId) return;
+      setConfirmDelete({ isOpen: false, id: null, name: '' });
       setDeletingId(barnId);
       axios.delete(`/farm/barns/${barnId}`)
         .then(() => {
@@ -564,7 +572,7 @@ export default function LingkunganKandangPage() {
                               <td className="py-3.5 px-4 text-center">
                                 <button
                                   type="button"
-                                  onClick={() => handleDeleteBarn(b.id_kandang || b.barnID, b.barnName || b.nama_kandang || 'Kandang')}
+                                  onClick={() => requestDeleteBarn(b.id_kandang || b.barnID, b.barnName || b.nama_kandang || 'Kandang')}
                                   disabled={deletingId === (b.id_kandang || b.barnID)}
                                   className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                                   title="Hapus data kandang ini"
@@ -587,6 +595,16 @@ export default function LingkunganKandangPage() {
             </div>
           </>
         )}
+
+        <ConfirmModal
+          isOpen={confirmDelete.isOpen}
+          title="Konfirmasi Hapus"
+          message={`Apakah Anda yakin ingin menghapus catatan lingkungan untuk "${confirmDelete.name}"?`}
+          confirmText="Hapus"
+          cancelText="Batal"
+          onConfirm={executeDeleteBarn}
+          onCancel={() => setConfirmDelete({ isOpen: false, id: null, name: '' })}
+        />
       </div>
     );
   }
