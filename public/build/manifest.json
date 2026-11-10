@@ -1,0 +1,915 @@
+{
+  "_ApplicationLogo-C9EsMKl7.js": {
+    "file": "assets/ApplicationLogo-C9EsMKl7.js",
+    "name": "ApplicationLogo",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_CowDetailPage-aVyTKh05.js": {
+    "file": "assets/CowDetailPage-aVyTKh05.js",
+    "name": "CowDetailPage",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_circle-alert-DoKl6eFZ.js",
+      "_circle-check-CJfeH1jV.js",
+      "_chevron-left-wccs8ADf.js",
+      "_beef-BTilLcJC.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_pen-BsKQ4mlH.js",
+      "_utensils-CskZ4m63.js",
+      "_activity-CGYgg1Ta.js",
+      "_thermometer-C0Py18L7.js",
+      "_stethoscope-D1AQR3UV.js",
+      "_file-text-BQpB2YSt.js",
+      "_plus-4YHXct2s.js"
+    ]
+  },
+  "_GuestLayout-CWQ3YJ8E.js": {
+    "file": "assets/GuestLayout-CWQ3YJ8E.js",
+    "name": "GuestLayout",
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo-C9EsMKl7.js"
+    ]
+  },
+  "_InputLabel-t2ol60sG.js": {
+    "file": "assets/InputLabel-t2ol60sG.js",
+    "name": "InputLabel",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_PrimaryButton-BTBAupVZ.js": {
+    "file": "assets/PrimaryButton-BTBAupVZ.js",
+    "name": "PrimaryButton",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_TextInput-BUEzU6lB.js": {
+    "file": "assets/TextInput-BUEzU6lB.js",
+    "name": "TextInput",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_activity-CGYgg1Ta.js": {
+    "file": "assets/activity-CGYgg1Ta.js",
+    "name": "activity",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_beef-BTilLcJC.js": {
+    "file": "assets/beef-BTilLcJC.js",
+    "name": "beef",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_chevron-left-wccs8ADf.js": {
+    "file": "assets/chevron-left-wccs8ADf.js",
+    "name": "chevron-left",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_chevron-right-C-fpEyn7.js": {
+    "file": "assets/chevron-right-C-fpEyn7.js",
+    "name": "chevron-right",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_circle-alert-DoKl6eFZ.js": {
+    "file": "assets/circle-alert-DoKl6eFZ.js",
+    "name": "circle-alert",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_circle-check-CJfeH1jV.js": {
+    "file": "assets/circle-check-CJfeH1jV.js",
+    "name": "circle-check",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_clock-BEZ_4XjS.js": {
+    "file": "assets/clock-BEZ_4XjS.js",
+    "name": "clock",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_createLucideIcon-BKX6FtMe.js": {
+    "file": "assets/createLucideIcon-BKX6FtMe.js",
+    "name": "createLucideIcon",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_dollar-sign-CdGYGQ4V.js": {
+    "file": "assets/dollar-sign-CdGYGQ4V.js",
+    "name": "dollar-sign",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_droplets-DEdmGEBn.js": {
+    "file": "assets/droplets-DEdmGEBn.js",
+    "name": "droplets",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_eye-BHtoDJdQ.js": {
+    "file": "assets/eye-BHtoDJdQ.js",
+    "name": "eye",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_eye-off-BOBXVsJr.js": {
+    "file": "assets/eye-off-BOBXVsJr.js",
+    "name": "eye-off",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_file-text-BQpB2YSt.js": {
+    "file": "assets/file-text-BQpB2YSt.js",
+    "name": "file-text",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_info-Dehcnooy.js": {
+    "file": "assets/info-Dehcnooy.js",
+    "name": "info",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_layers-CUTuyzpG.js": {
+    "file": "assets/layers-CUTuyzpG.js",
+    "name": "layers",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_lock-D--06P0L.js": {
+    "file": "assets/lock-D--06P0L.js",
+    "name": "lock",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_mail-DCmcACp_.js": {
+    "file": "assets/mail-DCmcACp_.js",
+    "name": "mail",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_pen-BsKQ4mlH.js": {
+    "file": "assets/pen-BsKQ4mlH.js",
+    "name": "pen",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_plus-4YHXct2s.js": {
+    "file": "assets/plus-4YHXct2s.js",
+    "name": "plus",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_scale-BGPIH296.js": {
+    "file": "assets/scale-BGPIH296.js",
+    "name": "scale",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_search-CG77y5B6.js": {
+    "file": "assets/search-CG77y5B6.js",
+    "name": "search",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_shield-check-BigCpJRh.js": {
+    "file": "assets/shield-check-BigCpJRh.js",
+    "name": "shield-check",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_stethoscope-D1AQR3UV.js": {
+    "file": "assets/stethoscope-D1AQR3UV.js",
+    "name": "stethoscope",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_thermometer-C0Py18L7.js": {
+    "file": "assets/thermometer-C0Py18L7.js",
+    "name": "thermometer",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_transition-7ZGc4hTN.js": {
+    "file": "assets/transition-7ZGc4hTN.js",
+    "name": "transition",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_trash-2-hJMkO4XM.js": {
+    "file": "assets/trash-2-hJMkO4XM.js",
+    "name": "trash-2",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_usePaginatedFetch-CigBr5Xc.js": {
+    "file": "assets/usePaginatedFetch-CigBr5Xc.js",
+    "name": "usePaginatedFetch",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_utensils-CskZ4m63.js": {
+    "file": "assets/utensils-CskZ4m63.js",
+    "name": "utensils",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_warehouse-DCH0eWOM.js": {
+    "file": "assets/warehouse-DCH0eWOM.js",
+    "name": "warehouse",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "_x-BgjAhgVV.js": {
+    "file": "assets/x-BgjAhgVV.js",
+    "name": "x",
+    "imports": [
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ConfirmPassword.jsx": {
+    "file": "assets/ConfirmPassword-iSgnOj2Z.js",
+    "name": "ConfirmPassword",
+    "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BUEzU6lB.js",
+      "_InputLabel-t2ol60sG.js",
+      "_PrimaryButton-BTBAupVZ.js",
+      "_GuestLayout-CWQ3YJ8E.js",
+      "_ApplicationLogo-C9EsMKl7.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ForgotPassword.jsx": {
+    "file": "assets/ForgotPassword-CRb2cwPP.js",
+    "name": "ForgotPassword",
+    "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BUEzU6lB.js",
+      "_PrimaryButton-BTBAupVZ.js",
+      "_GuestLayout-CWQ3YJ8E.js",
+      "_ApplicationLogo-C9EsMKl7.js"
+    ]
+  },
+  "resources/js/Pages/Auth/Login.jsx": {
+    "file": "assets/Login-C2KfDfxJ.js",
+    "name": "Login",
+    "src": "resources/js/Pages/Auth/Login.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_mail-DCmcACp_.js",
+      "_lock-D--06P0L.js",
+      "_eye-off-BOBXVsJr.js",
+      "_eye-BHtoDJdQ.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Auth/Register.jsx": {
+    "file": "assets/Register-CoXka58v.js",
+    "name": "Register",
+    "src": "resources/js/Pages/Auth/Register.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_mail-DCmcACp_.js",
+      "_lock-D--06P0L.js",
+      "_eye-off-BOBXVsJr.js",
+      "_eye-BHtoDJdQ.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ResetPassword.jsx": {
+    "file": "assets/ResetPassword-GXBDU_Wa.js",
+    "name": "ResetPassword",
+    "src": "resources/js/Pages/Auth/ResetPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BUEzU6lB.js",
+      "_InputLabel-t2ol60sG.js",
+      "_PrimaryButton-BTBAupVZ.js",
+      "_GuestLayout-CWQ3YJ8E.js",
+      "_ApplicationLogo-C9EsMKl7.js"
+    ]
+  },
+  "resources/js/Pages/Auth/VerifyEmail.jsx": {
+    "file": "assets/VerifyEmail-CqW9FA5j.js",
+    "name": "VerifyEmail",
+    "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_PrimaryButton-BTBAupVZ.js",
+      "_GuestLayout-CWQ3YJ8E.js",
+      "_ApplicationLogo-C9EsMKl7.js"
+    ]
+  },
+  "resources/js/Pages/Farm/Index.jsx": {
+    "file": "assets/Index-BaLGFVn8.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Farm/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/Sidebar.jsx",
+      "resources/js/Pages/Farm/components/DashboardPage.jsx",
+      "resources/js/Pages/Farm/components/KandangPage.jsx",
+      "resources/js/Pages/Farm/components/TempatMakanPage.jsx",
+      "resources/js/Pages/Farm/components/SapiPage.jsx",
+      "resources/js/Pages/Farm/components/PakanIdealPage.jsx",
+      "resources/js/Pages/Farm/components/IntensitasMakanPage.jsx",
+      "resources/js/Pages/Farm/components/RekapPerilakuPage.jsx",
+      "resources/js/Pages/Farm/components/KeuanganProfitPage.jsx",
+      "resources/js/Pages/Farm/components/LingkunganKandangPage.jsx",
+      "resources/js/Pages/Farm/components/ProfilPage.jsx",
+      "resources/js/Pages/Farm/components/DashboardMantriPage.jsx",
+      "resources/js/Pages/Farm/components/PemeriksaanKesehatanPage.jsx",
+      "resources/js/Pages/Farm/components/FisiologisPage.jsx",
+      "resources/js/Pages/Farm/components/PerilakuPage.jsx",
+      "resources/js/Pages/Farm/components/PemberianPakanPage.jsx",
+      "resources/js/Pages/Farm/components/AdminPage.jsx",
+      "resources/js/Pages/Farm/components/ErrorBoundary.jsx",
+      "_chevron-right-C-fpEyn7.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_beef-BTilLcJC.js",
+      "_stethoscope-D1AQR3UV.js",
+      "_warehouse-DCH0eWOM.js",
+      "_utensils-CskZ4m63.js",
+      "_thermometer-C0Py18L7.js",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_circle-check-CJfeH1jV.js",
+      "_droplets-DEdmGEBn.js",
+      "_chevron-left-wccs8ADf.js",
+      "_plus-4YHXct2s.js",
+      "_scale-BGPIH296.js",
+      "_activity-CGYgg1Ta.js",
+      "_search-CG77y5B6.js",
+      "_eye-BHtoDJdQ.js",
+      "_pen-BsKQ4mlH.js",
+      "_trash-2-hJMkO4XM.js",
+      "_circle-alert-DoKl6eFZ.js",
+      "_x-BgjAhgVV.js",
+      "resources/js/Pages/Farm/components/Pagination.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "_CowDetailPage-aVyTKh05.js",
+      "_file-text-BQpB2YSt.js",
+      "_layers-CUTuyzpG.js",
+      "_dollar-sign-CdGYGQ4V.js",
+      "_shield-check-BigCpJRh.js",
+      "_eye-off-BOBXVsJr.js",
+      "_usePaginatedFetch-CigBr5Xc.js",
+      "_clock-BEZ_4XjS.js",
+      "_info-Dehcnooy.js",
+      "_lock-D--06P0L.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/AdminPage.jsx": {
+    "file": "assets/AdminPage-BCSKYQAe.js",
+    "name": "AdminPage",
+    "src": "resources/js/Pages/Farm/components/AdminPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/Pagination.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_usePaginatedFetch-CigBr5Xc.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_beef-BTilLcJC.js",
+      "_plus-4YHXct2s.js",
+      "_lock-D--06P0L.js",
+      "_pen-BsKQ4mlH.js",
+      "_trash-2-hJMkO4XM.js",
+      "_circle-check-CJfeH1jV.js",
+      "_circle-alert-DoKl6eFZ.js",
+      "_x-BgjAhgVV.js",
+      "_chevron-left-wccs8ADf.js",
+      "_chevron-right-C-fpEyn7.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/DashboardMantriPage.jsx": {
+    "file": "assets/DashboardMantriPage-Den2AhlK.js",
+    "name": "DashboardMantriPage",
+    "src": "resources/js/Pages/Farm/components/DashboardMantriPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_activity-CGYgg1Ta.js",
+      "_circle-check-CJfeH1jV.js",
+      "_warehouse-DCH0eWOM.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/DashboardPage.jsx": {
+    "file": "assets/DashboardPage-D1VaA-Gc.js",
+    "name": "DashboardPage",
+    "src": "resources/js/Pages/Farm/components/DashboardPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_circle-check-CJfeH1jV.js",
+      "_droplets-DEdmGEBn.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_warehouse-DCH0eWOM.js",
+      "_beef-BTilLcJC.js",
+      "_thermometer-C0Py18L7.js",
+      "_chevron-right-C-fpEyn7.js",
+      "_chevron-left-wccs8ADf.js",
+      "_plus-4YHXct2s.js",
+      "_scale-BGPIH296.js",
+      "_activity-CGYgg1Ta.js",
+      "_search-CG77y5B6.js",
+      "_utensils-CskZ4m63.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/ErrorBoundary.jsx": {
+    "file": "assets/ErrorBoundary-dKT7A7bF.js",
+    "name": "ErrorBoundary",
+    "src": "resources/js/Pages/Farm/components/ErrorBoundary.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_circle-alert-DoKl6eFZ.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/FisiologisPage.jsx": {
+    "file": "assets/FisiologisPage-n5MPpKq9.js",
+    "name": "FisiologisPage",
+    "src": "resources/js/Pages/Farm/components/FisiologisPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/Pagination.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/PemeriksaanKesehatanPage.jsx",
+      "_usePaginatedFetch-CigBr5Xc.js",
+      "_circle-check-CJfeH1jV.js",
+      "_x-BgjAhgVV.js",
+      "_thermometer-C0Py18L7.js",
+      "_scale-BGPIH296.js",
+      "_file-text-BQpB2YSt.js",
+      "_activity-CGYgg1Ta.js",
+      "_search-CG77y5B6.js",
+      "_clock-BEZ_4XjS.js",
+      "_eye-BHtoDJdQ.js",
+      "_pen-BsKQ4mlH.js",
+      "_trash-2-hJMkO4XM.js",
+      "_info-Dehcnooy.js",
+      "_chevron-left-wccs8ADf.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_chevron-right-C-fpEyn7.js",
+      "_stethoscope-D1AQR3UV.js",
+      "_plus-4YHXct2s.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/IntensitasMakanPage.jsx": {
+    "file": "assets/IntensitasMakanPage-DAf2tGcj.js",
+    "name": "IntensitasMakanPage",
+    "src": "resources/js/Pages/Farm/components/IntensitasMakanPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "_utensils-CskZ4m63.js",
+      "_layers-CUTuyzpG.js",
+      "_activity-CGYgg1Ta.js",
+      "_circle-check-CJfeH1jV.js",
+      "_search-CG77y5B6.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/KandangPage.jsx": {
+    "file": "assets/KandangPage-DLAyqMNK.js",
+    "name": "KandangPage",
+    "src": "resources/js/Pages/Farm/components/KandangPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_warehouse-DCH0eWOM.js",
+      "_plus-4YHXct2s.js",
+      "_eye-BHtoDJdQ.js",
+      "_pen-BsKQ4mlH.js",
+      "_trash-2-hJMkO4XM.js",
+      "_circle-check-CJfeH1jV.js",
+      "_circle-alert-DoKl6eFZ.js",
+      "_x-BgjAhgVV.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/KeuanganProfitPage.jsx": {
+    "file": "assets/KeuanganProfitPage-DlqXgjrx.js",
+    "name": "KeuanganProfitPage",
+    "src": "resources/js/Pages/Farm/components/KeuanganProfitPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "_dollar-sign-CdGYGQ4V.js",
+      "_warehouse-DCH0eWOM.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_circle-check-CJfeH1jV.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/LingkunganKandangPage.jsx": {
+    "file": "assets/LingkunganKandangPage-CclLHf9U.js",
+    "name": "LingkunganKandangPage",
+    "src": "resources/js/Pages/Farm/components/LingkunganKandangPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_thermometer-C0Py18L7.js",
+      "_plus-4YHXct2s.js",
+      "_circle-check-CJfeH1jV.js",
+      "_droplets-DEdmGEBn.js",
+      "_warehouse-DCH0eWOM.js",
+      "_activity-CGYgg1Ta.js",
+      "_search-CG77y5B6.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/PageHeaderBanner.jsx": {
+    "file": "assets/PageHeaderBanner-Du1hL393.js",
+    "name": "PageHeaderBanner",
+    "src": "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Farm/components/Pagination.jsx": {
+    "file": "assets/Pagination-C7jUBg-n.js",
+    "name": "Pagination",
+    "src": "resources/js/Pages/Farm/components/Pagination.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_chevron-left-wccs8ADf.js",
+      "_chevron-right-C-fpEyn7.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/PakanIdealPage.jsx": {
+    "file": "assets/PakanIdealPage-_HdCsEvg.js",
+    "name": "PakanIdealPage",
+    "src": "resources/js/Pages/Farm/components/PakanIdealPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "_scale-BGPIH296.js",
+      "_layers-CUTuyzpG.js",
+      "_circle-check-CJfeH1jV.js",
+      "_search-CG77y5B6.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/PemberianPakanPage.jsx": {
+    "file": "assets/PemberianPakanPage-4umoBRtm.js",
+    "name": "PemberianPakanPage",
+    "src": "resources/js/Pages/Farm/components/PemberianPakanPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/Pagination.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/PakanIdealPage.jsx",
+      "resources/js/Pages/Farm/components/IntensitasMakanPage.jsx",
+      "_usePaginatedFetch-CigBr5Xc.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_plus-4YHXct2s.js",
+      "_scale-BGPIH296.js",
+      "_utensils-CskZ4m63.js",
+      "_clock-BEZ_4XjS.js",
+      "_dollar-sign-CdGYGQ4V.js",
+      "_circle-check-CJfeH1jV.js",
+      "_x-BgjAhgVV.js",
+      "_search-CG77y5B6.js",
+      "_eye-BHtoDJdQ.js",
+      "_pen-BsKQ4mlH.js",
+      "_trash-2-hJMkO4XM.js",
+      "_info-Dehcnooy.js",
+      "_circle-alert-DoKl6eFZ.js",
+      "_chevron-left-wccs8ADf.js",
+      "_chevron-right-C-fpEyn7.js",
+      "_layers-CUTuyzpG.js",
+      "_activity-CGYgg1Ta.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/PemeriksaanKesehatanPage.jsx": {
+    "file": "assets/PemeriksaanKesehatanPage-CHM3JSMv.js",
+    "name": "PemeriksaanKesehatanPage",
+    "src": "resources/js/Pages/Farm/components/PemeriksaanKesehatanPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "_stethoscope-D1AQR3UV.js",
+      "_file-text-BQpB2YSt.js",
+      "_plus-4YHXct2s.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_search-CG77y5B6.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/PerilakuPage.jsx": {
+    "file": "assets/PerilakuPage-eWD7Vtgg.js",
+    "name": "PerilakuPage",
+    "src": "resources/js/Pages/Farm/components/PerilakuPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/Pagination.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/RekapPerilakuPage.jsx",
+      "_usePaginatedFetch-CigBr5Xc.js",
+      "_circle-check-CJfeH1jV.js",
+      "_x-BgjAhgVV.js",
+      "_activity-CGYgg1Ta.js",
+      "_plus-4YHXct2s.js",
+      "_layers-CUTuyzpG.js",
+      "_search-CG77y5B6.js",
+      "_pen-BsKQ4mlH.js",
+      "_trash-2-hJMkO4XM.js",
+      "_info-Dehcnooy.js",
+      "_chevron-left-wccs8ADf.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_chevron-right-C-fpEyn7.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/ProfilPage.jsx": {
+    "file": "assets/ProfilPage-BokgzGca.js",
+    "name": "ProfilPage",
+    "src": "resources/js/Pages/Farm/components/ProfilPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_shield-check-BigCpJRh.js",
+      "_circle-alert-DoKl6eFZ.js",
+      "_eye-off-BOBXVsJr.js",
+      "_eye-BHtoDJdQ.js",
+      "_circle-check-CJfeH1jV.js",
+      "_x-BgjAhgVV.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/RekapPerilakuPage.jsx": {
+    "file": "assets/RekapPerilakuPage-BZc2SdAM.js",
+    "name": "RekapPerilakuPage",
+    "src": "resources/js/Pages/Farm/components/RekapPerilakuPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "_activity-CGYgg1Ta.js",
+      "_layers-CUTuyzpG.js",
+      "_circle-check-CJfeH1jV.js",
+      "_search-CG77y5B6.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/SapiPage.jsx": {
+    "file": "assets/SapiPage-Dbaq4e_1.js",
+    "name": "SapiPage",
+    "src": "resources/js/Pages/Farm/components/SapiPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/Pagination.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_CowDetailPage-aVyTKh05.js",
+      "_beef-BTilLcJC.js",
+      "_circle-alert-DoKl6eFZ.js",
+      "_circle-check-CJfeH1jV.js",
+      "_search-CG77y5B6.js",
+      "_plus-4YHXct2s.js",
+      "_utensils-CskZ4m63.js",
+      "_activity-CGYgg1Ta.js",
+      "_thermometer-C0Py18L7.js",
+      "_stethoscope-D1AQR3UV.js",
+      "_eye-BHtoDJdQ.js",
+      "_trash-2-hJMkO4XM.js",
+      "_x-BgjAhgVV.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_chevron-left-wccs8ADf.js",
+      "_chevron-right-C-fpEyn7.js",
+      "_pen-BsKQ4mlH.js",
+      "_file-text-BQpB2YSt.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/Sidebar.jsx": {
+    "file": "assets/Sidebar-BO--_lZW.js",
+    "name": "Sidebar",
+    "src": "resources/js/Pages/Farm/components/Sidebar.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_beef-BTilLcJC.js",
+      "_stethoscope-D1AQR3UV.js",
+      "_warehouse-DCH0eWOM.js",
+      "_utensils-CskZ4m63.js",
+      "_thermometer-C0Py18L7.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/SortSelect.jsx": {
+    "file": "assets/SortSelect-XdzUkPS7.js",
+    "name": "SortSelect",
+    "src": "resources/js/Pages/Farm/components/SortSelect.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Farm/components/TempatMakanPage.jsx": {
+    "file": "assets/TempatMakanPage-BRjF7Llr.js",
+    "name": "TempatMakanPage",
+    "src": "resources/js/Pages/Farm/components/TempatMakanPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "_chevron-left-wccs8ADf.js",
+      "_utensils-CskZ4m63.js",
+      "_circle-alert-DoKl6eFZ.js",
+      "_plus-4YHXct2s.js",
+      "_eye-BHtoDJdQ.js",
+      "_pen-BsKQ4mlH.js",
+      "_trash-2-hJMkO4XM.js",
+      "_circle-check-CJfeH1jV.js",
+      "_x-BgjAhgVV.js",
+      "_createLucideIcon-BKX6FtMe.js"
+    ]
+  },
+  "resources/js/Pages/Landing.jsx": {
+    "file": "assets/Landing-DkugQwtj.js",
+    "name": "Landing",
+    "src": "resources/js/Pages/Landing.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_chevron-right-C-fpEyn7.js",
+      "_createLucideIcon-BKX6FtMe.js",
+      "_beef-BTilLcJC.js",
+      "_stethoscope-D1AQR3UV.js",
+      "_shield-check-BigCpJRh.js"
+    ]
+  },
+  "resources/js/Pages/Profile/Edit.jsx": {
+    "file": "assets/Edit-BIt8M8Iv.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Profile/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo-C9EsMKl7.js",
+      "_transition-7ZGc4hTN.js",
+      "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
+      "_TextInput-BUEzU6lB.js",
+      "_InputLabel-t2ol60sG.js",
+      "_PrimaryButton-BTBAupVZ.js"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": {
+    "file": "assets/DeleteUserForm-Caz7fSIG.js",
+    "name": "DeleteUserForm",
+    "src": "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BUEzU6lB.js",
+      "_InputLabel-t2ol60sG.js",
+      "_transition-7ZGc4hTN.js"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx": {
+    "file": "assets/UpdatePasswordForm-C6-Y6C02.js",
+    "name": "UpdatePasswordForm",
+    "src": "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BUEzU6lB.js",
+      "_InputLabel-t2ol60sG.js",
+      "_PrimaryButton-BTBAupVZ.js",
+      "_transition-7ZGc4hTN.js"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": {
+    "file": "assets/UpdateProfileInformationForm-DypxbrQE.js",
+    "name": "UpdateProfileInformationForm",
+    "src": "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BUEzU6lB.js",
+      "_InputLabel-t2ol60sG.js",
+      "_PrimaryButton-BTBAupVZ.js",
+      "_transition-7ZGc4hTN.js"
+    ]
+  },
+  "resources/js/app.jsx": {
+    "file": "assets/app-LAL7XhAi.js",
+    "name": "app",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Auth/ConfirmPassword.jsx",
+      "resources/js/Pages/Auth/ForgotPassword.jsx",
+      "resources/js/Pages/Auth/Login.jsx",
+      "resources/js/Pages/Auth/Register.jsx",
+      "resources/js/Pages/Auth/ResetPassword.jsx",
+      "resources/js/Pages/Auth/VerifyEmail.jsx",
+      "resources/js/Pages/Farm/Index.jsx",
+      "resources/js/Pages/Farm/components/AdminPage.jsx",
+      "_CowDetailPage-aVyTKh05.js",
+      "resources/js/Pages/Farm/components/DashboardMantriPage.jsx",
+      "resources/js/Pages/Farm/components/DashboardPage.jsx",
+      "resources/js/Pages/Farm/components/ErrorBoundary.jsx",
+      "resources/js/Pages/Farm/components/FisiologisPage.jsx",
+      "resources/js/Pages/Farm/components/IntensitasMakanPage.jsx",
+      "resources/js/Pages/Farm/components/KandangPage.jsx",
+      "resources/js/Pages/Farm/components/KeuanganProfitPage.jsx",
+      "resources/js/Pages/Farm/components/LingkunganKandangPage.jsx",
+      "resources/js/Pages/Farm/components/PageHeaderBanner.jsx",
+      "resources/js/Pages/Farm/components/Pagination.jsx",
+      "resources/js/Pages/Farm/components/PakanIdealPage.jsx",
+      "resources/js/Pages/Farm/components/PemberianPakanPage.jsx",
+      "resources/js/Pages/Farm/components/PemeriksaanKesehatanPage.jsx",
+      "resources/js/Pages/Farm/components/PerilakuPage.jsx",
+      "resources/js/Pages/Farm/components/ProfilPage.jsx",
+      "resources/js/Pages/Farm/components/RekapPerilakuPage.jsx",
+      "resources/js/Pages/Farm/components/SapiPage.jsx",
+      "resources/js/Pages/Farm/components/Sidebar.jsx",
+      "resources/js/Pages/Farm/components/SortSelect.jsx",
+      "resources/js/Pages/Farm/components/TempatMakanPage.jsx",
+      "resources/js/Pages/Landing.jsx",
+      "resources/js/Pages/Profile/Edit.jsx",
+      "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx"
+    ],
+    "css": [
+      "assets/app-C2w-hxvS.css"
+    ]
+  }
+}
