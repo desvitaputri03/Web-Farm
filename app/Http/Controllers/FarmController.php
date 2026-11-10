@@ -811,9 +811,21 @@ class FarmController extends Controller
 
     public function destroyBehavior(Request $request, string $id)
     {
-        $beh = LogPerilaku::where('id_log_perilaku', $id)->first();
-        if ($beh)
+        $beh = LogPerilaku::where('id_log_perilaku', $id)
+            ->orWhere('id', $id)
+            ->first();
+
+        if ($beh) {
             $beh->delete();
+        }
+
+        if ($request->wantsJson() || $request->ajax() || !$request->header('X-Inertia')) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data perilaku berhasil dihapus!'
+            ]);
+        }
+
         return redirect()->back()->with('success', 'Data perilaku berhasil dihapus!');
     }
 
@@ -1019,11 +1031,15 @@ class FarmController extends Controller
 
     public function destroyFeed(Request $request, string $id)
     {
-        $feed = LogPakan::where('id_log_pakan', $id)->first();
-        if ($feed)
-            $feed->delete();
+        $feed = LogPakan::where('id_log_pakan', $id)
+            ->orWhere('id', $id)
+            ->first();
 
-        if ($request->wantsJson() && !$request->header('X-Inertia')) {
+        if ($feed) {
+            $feed->delete();
+        }
+
+        if ($request->wantsJson() || $request->ajax() || !$request->header('X-Inertia')) {
             return response()->json(['success' => true, 'message' => 'Data pakan berhasil dihapus!']);
         }
 

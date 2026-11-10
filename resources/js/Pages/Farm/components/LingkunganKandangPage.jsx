@@ -553,7 +553,6 @@ export default function LingkunganKandangPage() {
                               <th className="px-4 py-3.5 text-right">Kecepatan Udara</th>
                               <th className="px-4 py-3.5 text-center">Curah Hujan</th>
                               <th className="px-4 py-3.5 text-center">Keadaan Lantai</th>
-                              <th className="px-4 py-3.5 text-center">Aksi</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
@@ -568,17 +567,6 @@ export default function LingkunganKandangPage() {
                                 <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                   {floor}
                                 </span>
-                              </td>
-                              <td className="py-3.5 px-4 text-center">
-                                <button
-                                  type="button"
-                                  onClick={() => requestDeleteBarn(b.id_kandang || b.barnID, b.barnName || b.nama_kandang || 'Kandang')}
-                                  disabled={deletingId === (b.id_kandang || b.barnID)}
-                                  className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-[#DCE5F0] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                                  title="Hapus data kandang ini"
-                                >
-                                  <Trash2 className="h-3.5 w-3.5" />
-                                </button>
                               </td>
                             </tr>
                           </tbody>
