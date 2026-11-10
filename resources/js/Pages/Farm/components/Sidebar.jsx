@@ -161,7 +161,7 @@ export default function Sidebar({ activeModule, setActiveModule, role = 'peterna
         <button
           type="button"
           onClick={onLogout}
-          className="w-full bg-white/10 hover:bg-rose-500/20 text-white hover:text-rose-200 border border-white/15 hover:border-rose-400/30 text-xs font-bold rounded-xl px-3.5 py-2.5 flex items-center gap-3 transition-all cursor-pointer shadow-xs font-body"
+          className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/15 text-xs font-bold rounded-xl px-3.5 py-2.5 flex items-center gap-3 transition-all cursor-pointer shadow-xs font-body"
           title="Logout"
         >
           <LogOut className="h-4 w-4 shrink-0 stroke-[2.2]" />
